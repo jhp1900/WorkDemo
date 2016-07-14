@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="1000,600" roundcorner="5,5" caption="0,0,0,35" sizebox="4,4,2,6" >
+  <Font name="宋体" size="15" bold="true" />
+  <Font name="微软雅黑" size="15" bold="true" />
+  <Font name="宋体" size="12" bold="true" defult="true"/>
+  <VerticalLayout bkcolor="#ff29b8cc" inset="2,2,2,2">
+    <!-- Title -->
+    <HorizontalLayout height="25" inset="5,0,5,0">	
+      <Button name="menu" width="100" text="ResFileScan" font="0" />
+      <Control />
+      <Button name="minbtn" tooltip="最小化" width="15" textpadding="0,7,2,0" text="-" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" /> 
+      <Button name="closebtn" tooltip="退出" width="25" text="X" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" />
+    </HorizontalLayout>
+
+    <!-- 主体 -->
+    <HorizontalLayout name="">
+      <Panel name="body_wnd" id="0" />
+    </HorizontalLayout>
+  </VerticalLayout>
+</Window>
