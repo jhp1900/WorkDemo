@@ -15,8 +15,11 @@ TraversingResource::~TraversingResource()
 		::FindClose(find_handle_);
 }
 
-void TraversingResource::GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> &ex_names, vector<TCHAR *> &files)
+void TraversingResource::GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> &ex_names, vector<TCHAR *> &files, bool clean /* = true */)
 {
+  if (clean)
+    files.clear();
+
   /* lambda 表达式： 如果是需求的文件类型，返回true */
   auto IsExName = [&ex_names](LPCTSTR ex_name) -> bool {
     if (ex_names.empty())

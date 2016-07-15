@@ -36,6 +36,9 @@
     <ClCompile Include="traversing_resource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="res_file_control.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_control_ui.h">
@@ -63,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="traversing_resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="res_file_control.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

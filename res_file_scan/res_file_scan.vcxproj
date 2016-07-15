@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="inlet_function.cpp" />
+    <ClCompile Include="res_file_control.cpp" />
     <ClCompile Include="res_file_scan_wnd.cpp" />
     <ClCompile Include="manager.cpp" />
     <ClCompile Include="native_control_ui.cpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="window_impl_base.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="res_file_control.h" />
     <ClInclude Include="res_file_scan_wnd.h" />
     <ClInclude Include="manager.h" />
     <ClInclude Include="msg_header.h" />
