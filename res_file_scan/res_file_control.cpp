@@ -19,15 +19,15 @@ void ResFileControl::Reset(LPCTSTR file_path)
 
 }
 
-PDUI_CONTAINER ResFileControl::CreateCtrlIter(LPCTSTR file_name)
+PDUI_LISTCONTAINERELEM ResFileControl::CreateCtrlIter(LPCTSTR file_name)
 {
-  PDUI_CONTAINER ret = static_cast<PDUI_CONTAINER>(builder_.Create());
+  PDUI_LISTCONTAINERELEM ret = static_cast<PDUI_LISTCONTAINERELEM>(builder_.Create());
   if(ret)
     InitCtrlIter(ret, file_name);
   return ret;
 }
 
-void ResFileControl::InitCtrlIter(PDUI_CONTAINER ctrl, LPCTSTR file_name)
+void ResFileControl::InitCtrlIter(PDUI_LISTCONTAINERELEM ctrl, LPCTSTR file_name)
 {
   ctrl->SetMaxHeight(90);
   ctrl->SetMaxWidth(100);
@@ -40,54 +40,19 @@ void ResFileControl::InitCtrlIter(PDUI_CONTAINER ctrl, LPCTSTR file_name)
 
 LPCTSTR ResFileControl::GetProperIcon(LPCTSTR file_name)
 {
-  vector<LPCTSTR> picture_type = {
-    _T(".png"),
-    _T(".jpg"),
-    _T(".jpeg"),
-    _T(".bmp"),
-    _T(".ico")
-  };
-
-  vector<LPCTSTR> video_type = {
-    _T(".avi"),
-    _T(".wmv"),
-    _T(".mp4"),
-    _T(".mov"),
-    _T(".mkv"),
-    _T(".flv"),
-    _T(".f4v"),
-    _T(".m4v"),
-    _T(".rmvb"),
-    _T(".rm"),
-    _T(".3gp"),
-    _T(".dat"),
-    _T(".ts"),
-    _T(".mts"),
-    _T(".vob")
-  };
-
-  vector<LPCTSTR> music_type = {
-    _T(".mp3"),
-    _T(".wav"),
-    _T(".wma"),
-    _T(".ogg"),
-    _T(".ape"),
-    _T(".acc")
-  };
-
   LPCTSTR ex_name = ::PathFindExtension(file_name);
 
-  for (auto iter : picture_type) {
+  for (auto iter : file_type.picture_type) {
     if (!lstrcmpi(iter, ex_name))
       return _T("res\\picture_ico.png");
   }
 
-  for (auto iter : video_type) {
+  for (auto iter : file_type.video_type) {
     if (!lstrcmpi(iter, ex_name))
       return _T("res\\video_ico.png");
   }
 
-  for (auto iter : music_type) {
+  for (auto iter : file_type.audio_type) {
     if (!lstrcmpi(iter, ex_name))
       return _T("res\\music_ico.png");
   }

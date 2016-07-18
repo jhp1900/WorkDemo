@@ -15,16 +15,16 @@ TraversingResource::~TraversingResource()
 		::FindClose(find_handle_);
 }
 
-void TraversingResource::GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> &ex_names, vector<TCHAR *> &files, bool clean /* = true */)
+void TraversingResource::GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> *ex_names, vector<TCHAR *> &files, bool clean /* = true */)
 {
   if (clean)
     files.clear();
 
   /* lambda 表达式： 如果是需求的文件类型，返回true */
-  auto IsExName = [&ex_names](LPCTSTR ex_name) -> bool {
-    if (ex_names.empty())
+  auto IsExName = [ex_names](LPCTSTR ex_name) -> bool {
+    if (ex_names->empty())
       return true;
-    for (auto iter : ex_names) {
+    for (auto iter : *ex_names) {
       if (!lstrcmp(ex_name, iter))
         return true;
     }
@@ -33,7 +33,8 @@ void TraversingResource::GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> 
 
   for (FirstFile(folder_path); IsOK(); NextFile()) {
     LPCTSTR ex_name = ::PathFindExtension(GetCurFile().cFileName);
-    if (lstrcmp(ex_name, _T(".")) && lstrcmp(ex_name, _T("..")) && IsExName(ex_name)) {
+    if ( !(GetCurFile().dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)  // 不是文件夹
+      && IsExName(ex_name)) {     // 扩展名符合
       TCHAR *file_name = new TCHAR[MAX_PATH];
       lstrcpy(file_name, GetCurFile().cFileName);
       files.push_back(file_name);

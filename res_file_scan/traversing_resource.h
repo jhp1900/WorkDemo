@@ -10,7 +10,7 @@ public:
 	~TraversingResource();
 
 public:
-  void GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> &ex_names, vector<TCHAR *> &files, bool clean = true);
+  void GetResFiles(LPCTSTR folder_path, const vector<LPCTSTR> *ex_names, vector<TCHAR *> &files, bool clean = true);
 
 private:
 	void FirstFile(LPCTSTR file_name);		// 第一个文件 
