@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="100,80">
+<Window size="100,90">
   <!-- bkcolor="#ffcce8ff" bordercolor="#ff99d1ff" -->
-  <VerticalLayout name="file_ctrl" bkcolor="#" childpadding="3" mousechild="false" bordersize="1" bordercolor="#ff99d1ff" inset="5,5,5,2">
-    <Control name="file_view" bkcolor="#" />
+  <VerticalLayout name="file_ctrl" bkcolor="#" childpadding="3" mousechild="true" bordersize="1" bordercolor="#ff99d1ff" inset="5,5,5,2">
+    <Button name="file_view" height="60" bkcolor="#" />
     <Label name="file_name" height="20" text="" align="vcenter" endellipsis="true" />
   </VerticalLayout>
 </Window>

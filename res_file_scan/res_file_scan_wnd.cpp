@@ -83,7 +83,8 @@ void ResFileScanWnd::OnChangeFileType(TNotifyUI & msg, bool & handled)
 
 void ResFileScanWnd::OnClickCtrl(TNotifyUI & msg, bool & handled)
 {
-  int a = 0;
+	PDUI_CONTROL ctrl = msg.pSender->GetParent();
+	ctrl->SetBkColor(0xffcce8ff);
 }
 
 void ResFileScanWnd::FillFiles()
@@ -97,7 +98,7 @@ void ResFileScanWnd::FillFiles()
     return;
 
   file_panel->RemoveAll();
-  ResFileControl file_ctrl(folder_path_.GetData());
+  ResFileCtrl file_ctrl(folder_path_.GetData());
   for (auto iter : files_) {
     file_panel->Add(file_ctrl.CreateCtrlIter(iter));
   }

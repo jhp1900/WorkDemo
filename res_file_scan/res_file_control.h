@@ -40,11 +40,11 @@ typedef struct _FILE_TYPE {
   };
 } FILE_TYPE;
 
-class ResFileControl : public CListContainerElementUI
+class ResFileCtrl : public CListContainerElementUI
 {
 public:
-  ResFileControl(LPCTSTR file_path);
-  ~ResFileControl();
+  ResFileCtrl(LPCTSTR file_path);
+  ~ResFileCtrl();
 
 public:
   void Reset(LPCTSTR file_path);

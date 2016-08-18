@@ -2,24 +2,24 @@
 #include <Shlwapi.h>
 
 
-ResFileControl::ResFileControl(LPCTSTR file_path)
+ResFileCtrl::ResFileCtrl(LPCTSTR file_path)
   : file_path_(file_path)
 {
   builder_.Create(_T("res_file_control.xml"));
 }
 
 
-ResFileControl::~ResFileControl()
+ResFileCtrl::~ResFileCtrl()
 {
 }
 
-void ResFileControl::Reset(LPCTSTR file_path)
+void ResFileCtrl::Reset(LPCTSTR file_path)
 {
   file_path_ = file_path;
 
 }
 
-PDUI_LISTCONTAINERELEM ResFileControl::CreateCtrlIter(LPCTSTR file_name)
+PDUI_LISTCONTAINERELEM ResFileCtrl::CreateCtrlIter(LPCTSTR file_name)
 {
   PDUI_LISTCONTAINERELEM ret = static_cast<PDUI_LISTCONTAINERELEM>(builder_.Create());
   if(ret)
@@ -27,7 +27,7 @@ PDUI_LISTCONTAINERELEM ResFileControl::CreateCtrlIter(LPCTSTR file_name)
   return ret;
 }
 
-void ResFileControl::InitCtrlIter(PDUI_LISTCONTAINERELEM ctrl, LPCTSTR file_name)
+void ResFileCtrl::InitCtrlIter(PDUI_LISTCONTAINERELEM ctrl, LPCTSTR file_name)
 {
   ctrl->SetMaxHeight(90);
   ctrl->SetMaxWidth(100);
@@ -38,7 +38,7 @@ void ResFileControl::InitCtrlIter(PDUI_LISTCONTAINERELEM ctrl, LPCTSTR file_name
   ctrl->SetToolTip(file_name);
 }
 
-LPCTSTR ResFileControl::GetProperIcon(LPCTSTR file_name)
+LPCTSTR ResFileCtrl::GetProperIcon(LPCTSTR file_name)
 {
   LPCTSTR ex_name = ::PathFindExtension(file_name);
 

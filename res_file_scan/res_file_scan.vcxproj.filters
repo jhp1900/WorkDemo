@@ -39,6 +39,9 @@
     <ClCompile Include="res_file_control.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="test_ctrl.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="native_control_ui.h">
@@ -69,6 +72,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="res_file_control.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_ctrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
