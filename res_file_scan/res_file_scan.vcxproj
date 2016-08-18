@@ -73,8 +73,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)..\build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
-    <IncludePath>E:\Code\Work\work_demo\third_party\duilib;E:\Code\Work\work_demo\third_party;E:\Code\Work\work_demo\build;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\Code\Work\work_demo\third_party\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\third_party\duilib;..\third_party;..\build;$(IncludePath)</IncludePath>
+    <LibraryPath>..\third_party\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
