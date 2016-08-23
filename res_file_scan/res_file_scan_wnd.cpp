@@ -106,5 +106,5 @@ void ResFileScanWnd::FillFiles()
 
 void ResFileScanWnd::OnClickTestBtn(TNotifyUI & msg, bool & handled)
 {
-
+	int test = 0;	// ÃÌº”≤‚ ‘”Ôæ‰
 }
