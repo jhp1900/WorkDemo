@@ -16,15 +16,18 @@ ResFileCtrl::~ResFileCtrl()
 void ResFileCtrl::Reset(LPCTSTR file_path)
 {
   file_path_ = file_path;
-
+  ctrl_vector_.clear();
 }
 
 PDUI_LISTCONTAINERELEM ResFileCtrl::CreateCtrlIter(LPCTSTR file_name)
 {
-  PDUI_LISTCONTAINERELEM ret = static_cast<PDUI_LISTCONTAINERELEM>(builder_.Create());
-  if(ret)
-    InitCtrlIter(ret, file_name);
-  return ret;
+	PDUI_LISTCONTAINERELEM ret = static_cast<PDUI_LISTCONTAINERELEM>(builder_.Create());
+	if (ret) {
+		InitCtrlIter(ret, file_name);
+		ctrl_vector_.push_back(ret);
+	}
+
+	return ret;
 }
 
 void ResFileCtrl::InitCtrlIter(PDUI_LISTCONTAINERELEM ctrl, LPCTSTR file_name)
@@ -58,4 +61,12 @@ LPCTSTR ResFileCtrl::GetProperIcon(LPCTSTR file_name)
   }
 
   return _T("res\\default_ico.png");
+}
+
+void ResFileCtrl::SelectChange(PDUI_LISTCONTAINERELEM ctrl)
+{
+	for (auto iter : ctrl_vector_)
+		iter->SetBkColor(0);
+	ctrl->SetBkColor(0xffcce8ff);
+	::MessageBox(nullptr, ctrl->FindSubControl(_T("file_name"))->GetText(), _T("ÎÄ¼þÃû"), MB_OK);
 }

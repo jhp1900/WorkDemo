@@ -1,7 +1,7 @@
 #pragma once
 #include "view_base.h"
 
-class TestCtrl : public ViewBase
+class TestCtrl : public CListContainerElementUI
 {
 public:
 	TestCtrl();

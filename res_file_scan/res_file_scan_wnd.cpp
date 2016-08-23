@@ -7,6 +7,7 @@ ResFileScanWnd::ResFileScanWnd(HWND hwnd_parent)
   , ex_names_(&file_type_.all_type)
 {
   folder_path_ = _T("D:\\Dow\\360Yun");
+  file_ctrl_ = new ResFileCtrl(folder_path_.GetData());
 }
 
 ResFileScanWnd::~ResFileScanWnd()
@@ -83,8 +84,7 @@ void ResFileScanWnd::OnChangeFileType(TNotifyUI & msg, bool & handled)
 
 void ResFileScanWnd::OnClickCtrl(TNotifyUI & msg, bool & handled)
 {
-	PDUI_CONTROL ctrl = msg.pSender->GetParent();
-	ctrl->SetBkColor(0xffcce8ff);
+	file_ctrl_->SelectChange(static_cast<PDUI_LISTCONTAINERELEM>(msg.pSender->GetParent()));
 }
 
 void ResFileScanWnd::FillFiles()
@@ -98,9 +98,9 @@ void ResFileScanWnd::FillFiles()
     return;
 
   file_panel->RemoveAll();
-  ResFileCtrl file_ctrl(folder_path_.GetData());
+  file_ctrl_->Reset(folder_path_.GetData());
   for (auto iter : files_) {
-    file_panel->Add(file_ctrl.CreateCtrlIter(iter));
+    file_panel->Add(file_ctrl_->CreateCtrlIter(iter));
   }
 }
 

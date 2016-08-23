@@ -51,6 +51,7 @@ public:
   PDUI_LISTCONTAINERELEM CreateCtrlIter(LPCTSTR file_name);
   void InitCtrlIter(PDUI_LISTCONTAINERELEM ctrl, LPCTSTR file_name);
   LPCTSTR GetProperIcon(LPCTSTR file_name);
+  void SelectChange(PDUI_LISTCONTAINERELEM ctrl);
 
 public:
   FILE_TYPE file_type;
@@ -58,5 +59,6 @@ public:
 private:
   LPCTSTR file_path_;
   CDialogBuilder builder_;
+  vector<PDUI_LISTCONTAINERELEM> ctrl_vector_;
 };
 
