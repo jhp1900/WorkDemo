@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window>
+  <Default name="Button">textcolor="#ffdddddd" disabledtextcolor="#ffff0000" bkcolor="#ff494b51" hotbkcolor="#ffcd364b"</Default>
+  <Default name="Label">textcolor="#ffdddddd" disabledtextcolor="#ff666666"</Default>
+  <Default name="Edit">textcolor="#ffdddddd" disabledtextcolor="#ff666666" bkcolor="#ff494b51" nativebkcolor="#ff494b51"</Default>
+  <Font name="Arial" size="12" bold="false" italic="false" default="true" />
+  <VerticalLayout name="body_layout" bkcolor="#ff22252c">
+    <HorizontalLayout inset="3,3,3,3" bordersize="1" bordercolor="#ffcd364b" childpadding="2" height="27" visible="false">
+      <Control name="addr" visible="false" userdata="18.18.8.13:12321" />
+      <Button name="sync_lession_info" textcolor="#ff36cd4b" width="60" text="同步排课" />
+      <Control width="2" />
+      <Button name="rkbc_01" width="60" userdata="10001" text="开始录制" />
+      <Button name="rkbc_02" width="60" userdata="10002" text="暂停录制" />
+      <Button name="rkbc_03" width="60" userdata="10003" text="停止录制" />
+      <Control width="2" />
+      <Button name="rkbc_12" width="60" userdata="30001" text="自动导播" />
+      <Button name="rkbc_13" width="60" userdata="30002" text="手动导播" />
+      <!--
+        <Control width="2"/>
+        <Button name="rkbc_14" width="60" userdata="40001" text="关闭系统"/>
+      -->
+      <Control />
+      <Button name="close" width="20" text="X" bkimage="bk.png" />
+    </HorizontalLayout>
+    <Container>
+      <!-- <Panel name="video_wnd" id="0" /> -->
+      <Button name="rkbc_04" width="45" userdata="20001" text="通道1" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="200,200,250,250" />
+      <Button name="rkbc_05" width="45" userdata="20002" text="通道2" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="300,200,350,250" />
+      <Button name="rkbc_06" width="45" userdata="20003" text="通道3" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="400,200,450,250" />
+      <Button name="rkbc_07" width="45" userdata="20004" text="通道4" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="500,200,550,250" />
+      <Button name="rkbc_08" width="45" userdata="20005" text="通道5" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="200,400,250,450" />
+      <Button name="rkbc_09" width="45" userdata="20006" text="通道6" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="300,400,350,450" />
+      <Button name="rkbc_10" width="45" userdata="20007" text="通道7" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="400,400,450,450" />
+      <Button name="rkbc_11" width="45" userdata="20008" text="通道8" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="500,400,550,450" />
+    </Container>
+
+    <Control height="6" visible="false"/>
+    <VerticalLayout inset="3,3,3,3" bordersize="1" bordercolor="#ff36cd4b" childpadding="2" visible="false">
+      <HorizontalLayout height="22">
+        <Label text="年级：" width="50" />
+        <Edit name="grade_edit" align="left" />
+      </HorizontalLayout>
+      <HorizontalLayout height="22">
+        <Label text="编号：" width="50" />
+        <Edit name="teacher_id_edit" align="left" />
+      </HorizontalLayout>
+      <HorizontalLayout height="22">
+        <Label text="教师：" width="50" />
+        <Edit name="teacher_name_edit" align="left" />
+      </HorizontalLayout>
+      <HorizontalLayout height="22">
+        <Label text="科目：" width="50" />
+        <Edit name="subject_edit" align="left" />
+      </HorizontalLayout>
+      <HorizontalLayout height="22">
+        <Label text="章节：" width="50" />
+        <Edit name="chapter_edit" align="left" />
+      </HorizontalLayout>
+      <HorizontalLayout height="22">
+        <Label text="章节名：" width="50" />
+        <Edit name="chapter_name_edit" align="left" />
+      </HorizontalLayout>
+      <HorizontalLayout height="22">
+        <Button name="ok" text="确定" />
+        <Control width="5" />
+        <Button name="cancel" text="取消" />
+      </HorizontalLayout>
+    </VerticalLayout>
+  </VerticalLayout>
+</Window>

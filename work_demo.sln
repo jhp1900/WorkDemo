@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "res_file_scan", "res_file_scan\res_file_scan.vcxproj", "{33E0D3A2-51F3-45F5-8C42-B30D23BC14D4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "duilib", "third_party\duilib\duilib.vcxproj", "{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "remote_keyboard", "remote_keyboard\remote_keyboard.vcxproj", "{30D21CCF-2283-45B7-BA6A-5C38358C212E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,22 @@ Global
 		{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}.Release-sl|x64.Build.0 = Release-sl|x64
 		{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}.Release-sl|x86.ActiveCfg = Release-sl|Win32
 		{E106ACD7-4E53-4AEE-942B-D0DD426DB34E}.Release-sl|x86.Build.0 = Release-sl|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug|x64.ActiveCfg = Debug|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug|x64.Build.0 = Debug|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug|x86.ActiveCfg = Debug|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug|x86.Build.0 = Debug|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug-sl|x64.ActiveCfg = Debug|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug-sl|x64.Build.0 = Debug|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug-sl|x86.ActiveCfg = Debug|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Debug-sl|x86.Build.0 = Debug|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release|x64.ActiveCfg = Release|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release|x64.Build.0 = Release|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release|x86.ActiveCfg = Release|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release|x86.Build.0 = Release|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release-sl|x64.ActiveCfg = Release|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release-sl|x64.Build.0 = Release|x64
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release-sl|x86.ActiveCfg = Release|Win32
+		{30D21CCF-2283-45B7-BA6A-5C38358C212E}.Release-sl|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

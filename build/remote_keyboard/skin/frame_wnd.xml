@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window size="1290,755" caption="0,0,0,35" sizebox="5,5,5,5">
+  <VerticalLayout bkcolor="#FFffffff">
+    <HorizontalLayout name="title_layout" height="30" >
+      <Button name="home_main" width="100" bkimage="file='res\logo.png' dest='1,1,29,29'" textpadding="28,2,2,2" text="远程键盘" />
+      <Control width="50" />
+      <Button name="test_btn" tooltip="测试按钮" width="30" text="测试" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" /> 
+      <Control width="10" />
+      <Button name="show_btn" tooltip="测试按钮" width="30" text="显示" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" /> 
+      <Control  width="10" />
+      <Button name="noshow_btn" tooltip="测试按钮" width="30" text="隐藏" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" /> 
+      <Control />
+      <Button name="minbtn" tooltip="最小化" width="15" textpadding="0,7,2,0" text="-" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" /> 
+      <Button name="fullbtn" tooltip="全屏" width="15" text="口" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" /> 
+      <Button name="closebtn" tooltip="退出" width="25" text="X" font="0" hottextcolor="#FFFF0000" pushedtextcolor="#FF000000" />    
+    </HorizontalLayout>
+    <Container name="frame_body" bkcolor="#ffaaaaaa" inset="5,0,5,5">
+      <Panel name="video_wnd" id="0" />
+      <Panel name="control_wnd" id="1" />
+    </Container>
+  </VerticalLayout>
+</Window>
