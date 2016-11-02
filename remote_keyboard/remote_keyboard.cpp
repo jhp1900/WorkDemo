@@ -6,6 +6,7 @@ RemoteKeyboard::RemoteKeyboard()
 	, in_channel_(false)
 	, old_point_({ 0, 0 })
 	, is_move_(false)
+	, setup_wnd_(nullptr)
 {
 }
 
@@ -78,6 +79,20 @@ LRESULT RemoteKeyboard::OnTime(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & b
 	return LRESULT();
 }
 
+void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
+{
+	LPPOINT lpoint = new tagPOINT;
+	::GetCursorPos(lpoint);
+	setup_wnd_->PopupWindow(lpoint);
+}
+
+LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
+{
+	::SendMessage(GetParent(pa_hwnd_), kAM_ChildEscMsg, 0, 0);
+	
+	return LRESULT();
+}
+
 void RemoteKeyboard::Init(HWND pa_hwnd)
 {
 	pa_hwnd_ = pa_hwnd;
@@ -87,6 +102,8 @@ void RemoteKeyboard::Init(HWND pa_hwnd)
 	SetLayeredWindowAttributes(m_hWnd, cr_key, 255, LWA_COLORKEY);
 
 	ResetKeyPos();
+	setup_wnd_.reset(new SetupPopWnd);
+	setup_wnd_->CreateWithDefaltStyle(GetParent(pa_hwnd_));
 }
 
 COLORREF RemoteKeyboard::GetWindowBkColor(LPCTSTR control_name)
@@ -105,25 +122,30 @@ void RemoteKeyboard::ResetWndSize()
 	ResetKeyPos();
 }
 
+void RemoteKeyboard::SetSetupBtnVisible(bool visible)
+{
+	m_PaintManager.FindControl(_T("setupbtn"))->SetVisible(visible);
+}
+
 void RemoteKeyboard::ResetKeyPos()
 {
 	RECT pos[8] = {};
 	RECT win_rect = {};
 	GetWindowRect(m_hWnd, &win_rect);
 	UINT width_pitch = (win_rect.right - win_rect.left - 50) / 5;
-	UINT height_pitch = (win_rect.bottom - win_rect.top - 50 - 27) / 3;
+	UINT height_pitch = (win_rect.bottom - win_rect.top - 30 - 27) / 3;
 
 	for (int i = 0; i < 4; ++i) {
 		pos[i].left = (i + 1) * width_pitch;
 		pos[i].right = pos[i].left + 50;
 		pos[i].top = height_pitch;
-		pos[i].bottom = pos[i].top + 50;
+		pos[i].bottom = pos[i].top + 30;
 	}
 	for (int i = 4; i < 8; ++i) {
 		pos[i].left = (i - 3) * width_pitch;
 		pos[i].right = pos[i].left + 50;
 		pos[i].top = height_pitch * 2;
-		pos[i].bottom = pos[i].top + 50;
+		pos[i].bottom = pos[i].top + 30;
 	}
 
 	TCHAR name[32];

@@ -36,6 +36,9 @@
     <ClCompile Include="video_wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="setup_pop_wnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="frame_wnd.h">
@@ -63,6 +66,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="msg_head.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="setup_pop_wnd.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

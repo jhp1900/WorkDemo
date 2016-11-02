@@ -29,6 +29,6 @@ void VideoWnd::RunVideo()
 
 LRESULT VideoWnd::OnWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
 {
-	::PostMessage(pa_hwnd_, kAM_VideoWndSizeMsg, 0, 0);
+	::PostMessage(pa_hwnd_, kAM_WndSizeChangeMsg, 0, 0);
 	return LRESULT();
 }

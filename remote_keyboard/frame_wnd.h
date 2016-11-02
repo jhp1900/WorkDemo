@@ -30,7 +30,8 @@ public:
 
 	BEGIN_DUIMSG_MAP(FrameWnd)
 		DUIMSG_HANDLER(kAM_InitOtherWndMsg, OnInitOtherWndMsg)
-		DUIMSG_HANDLER(kAM_VideoWndSizeMsg, OnVideoWndSizeMsg)
+		DUIMSG_HANDLER(kAM_WndSizeChangeMsg, OnWndSizeChangeMsg)
+		DUIMSG_HANDLER(kAM_ChildEscMsg, OnChildEscMsg)
 	END_DUIMSG_MAP()
 
 public:
@@ -43,7 +44,11 @@ private:
 
 private:
 	LRESULT OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
-	LRESULT OnVideoWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+	LRESULT OnWndSizeChangeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+	LRESULT OnChildEscMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+
+private:
+	virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam) override;
 
 private:
 	void OnFullWnd();		// ´°¿ÚÈ«ÆÁ

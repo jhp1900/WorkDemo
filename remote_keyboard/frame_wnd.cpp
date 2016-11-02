@@ -57,20 +57,43 @@ LRESULT FrameWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOO
 	return LRESULT();
 }
 
-LRESULT FrameWnd::OnVideoWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+LRESULT FrameWnd::OnWndSizeChangeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
 {
 	keyboard_->ResetWndSize();
+	return LRESULT();
+}
+
+LRESULT FrameWnd::OnChildEscMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+{
+	OnQuitFullWnd();
+	return LRESULT();
+}
+
+LRESULT FrameWnd::ResponseDefaultKeyEvent(WPARAM wParam)
+{
+	if(wParam == VK_ESCAPE)
+		OnQuitFullWnd();
 	return LRESULT();
 }
 
 void FrameWnd::OnFullWnd()
 {
 	m_PaintManager.FindControl(_T("title_layout"))->SetVisible(false);
-	int cx = GetSystemMetrics(SM_CXFULLSCREEN);
-	int cy = GetSystemMetrics(SM_CYFULLSCREEN);
+	PDUI_CONTAINER frame_body;
+	frame_body = static_cast<PDUI_CONTAINER>(m_PaintManager.FindControl(_T("frame_body")));
+	frame_body->SetInset({ 0,0,0,0 });
+	int cx = GetSystemMetrics(SM_CXSCREEN);
+	int cy = GetSystemMetrics(SM_CYSCREEN);
 	MoveWindow(m_hWnd, 0, 0, cx, cy, true);
+	keyboard_->SetSetupBtnVisible(true);
 }
 
 void FrameWnd::OnQuitFullWnd()
 {
+	keyboard_->SetSetupBtnVisible(false);
+	m_PaintManager.FindControl(_T("title_layout"))->SetVisible(true);
+	PDUI_CONTAINER frame_body;
+	frame_body = static_cast<PDUI_CONTAINER>(m_PaintManager.FindControl(_T("frame_body")));
+	frame_body->SetInset({ 5,0,5,5 });
+	SendMessage(WM_SYSCOMMAND, SC_RESTORE, 0);
 }

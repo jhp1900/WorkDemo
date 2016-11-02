@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="1290,755" caption="0,0,0,35" sizebox="5,5,5,5">
+<Window caption="0,0,0,35" sizebox="5,5,5,5">
   <VerticalLayout bkcolor="#FFffffff">
     <HorizontalLayout name="title_layout" height="30" >
       <Button name="home_main" width="100" bkimage="file='res\logo.png' dest='1,1,29,29'" textpadding="28,2,2,2" text="远程键盘" />

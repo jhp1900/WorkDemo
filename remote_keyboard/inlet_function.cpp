@@ -10,7 +10,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PWSTR lpCmd
 	CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath() + _T("..\\skin"));
 
 	FrameWnd frame_wnd;
-	frame_wnd.Create(NULL, _T("Ô¶³Ì¼üÅÌ"), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
+	frame_wnd.Create(NULL, _T("Ô¶³Ì¼üÅÌ"), UI_WNDSTYLE_FRAME | WS_MAXIMIZE, WS_EX_WINDOWEDGE);
 	frame_wnd.CenterWindow();
 	frame_wnd.ShowWindow(true);
 
