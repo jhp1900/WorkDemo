@@ -3,6 +3,11 @@
 #include "msg_head.h"
 #include <memory>
 #include "setup_pop_wnd.h"
+#include <boost\crc.hpp>
+#include <boost\thread.hpp>
+//#include <atlbase.h>
+//#include <atlwin.h>
+//#include <atltypes.h>
 
 class RemoteKeyboard : public WindowImplBase
 {
@@ -17,10 +22,12 @@ public:
 		DUIMSG_HANDLER(WM_LBUTTONUP, OnCursorLButtonUp)
 		DUIMSG_HANDLER(WM_MOUSEMOVE, OnCursorMove)
 		DUIMSG_HANDLER(WM_TIMER, OnTime)
+		DUIMSG_HANDLER(WM_UPDATE_STATUS, OnUpdateStatus)
 	END_DUIMSG_MAP()
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
 		DUINOTIFY_HANDLER(_T("setupbtn"), DUINOTIFY_CLICK, OnClickSteupBtn)
+		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_CLICK, OnClick)
 	END_DUINOTIFY_MAP()
 
 private:
@@ -28,9 +35,11 @@ private:
 	LRESULT OnCursorLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 	LRESULT OnCursorMove(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 	LRESULT OnTime(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
+	LRESULT OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 
 private:
 	void OnClickSteupBtn(TNotifyUI& msg, bool& handled);
+	void OnClick(TNotifyUI& msg, bool& handled);
 
 private:
 	virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam) override;
@@ -44,6 +53,8 @@ public:
 private:
 	void ResetKeyPos();
 	bool InChKeyRect(UINT channel, POINT point);
+	bool EnableControl(LPCTSTR name, bool enable);
+	void OnCheck();
 
 private:
 	HWND pa_hwnd_;
@@ -52,5 +63,12 @@ private:
 	POINT old_point_;
 	bool is_move_;
 	std::shared_ptr<SetupPopWnd> setup_wnd_;
+
+	RPC_BINDING_HANDLE m_hwBinding;
+	RPC_WSTR m_szStringBinding;
+	boost::shared_ptr<boost::thread> m_check_thread;
+	volatile LONG m_check_running;
+	std::wstring m_lession_info;
+	DWORD m_lession_info_checksum;
 };
 

@@ -73,8 +73,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)..\build\$(ProjectName)\$(Configuration)\</OutDir>
     <IntDir>$(OutDir)obj\$(ProjectName)\</IntDir>
-    <IncludePath>..\third_party\duilib;..\third_party;..\build;..\third_party\libvlc_include;..\third_party\libvlc_include\vlc\plugins;$(IncludePath)</IncludePath>
-    <LibraryPath>..\third_party\libs;..\third_party\libvlc_lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\third_party\duilib;..\third_party;..\build;..\third_party\libvlc_include;..\third_party\libvlc_include\vlc\plugins;..\third_party\boost\include;..\third_party\pugixml;$(IncludePath)</IncludePath>
+    <LibraryPath>..\third_party\libs;..\third_party\libvlc_lib;..\third_party\boost\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -166,12 +166,16 @@
     <ClInclude Include="msg_head.h" />
     <ClInclude Include="native_control_ui.h" />
     <ClInclude Include="remote_keyboard.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="setup_pop_wnd.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="video_wnd.h" />
     <ClInclude Include="vlc_tool.h" />
     <ClInclude Include="window_impl_base.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="remote_keyboard.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
