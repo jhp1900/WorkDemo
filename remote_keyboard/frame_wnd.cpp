@@ -54,6 +54,7 @@ LRESULT FrameWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOO
 	keyboard_->Init(video_wnd_->GetHwnd());
 	keyboard_->ShowWindow(true);
 
+	OnFullWnd();
 	return LRESULT();
 }
 

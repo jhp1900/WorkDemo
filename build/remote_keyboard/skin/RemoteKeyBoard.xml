@@ -5,7 +5,7 @@
   <Default name="Edit">textcolor="#ffdddddd" disabledtextcolor="#ff666666" bkcolor="#ff494b51" nativebkcolor="#ff494b51"</Default>
   <Font name="Arial" size="12" bold="false" italic="false" default="true" />
   <VerticalLayout name="body_layout" bkcolor="#ff22252c">
-    <HorizontalLayout inset="3,3,3,3" bordersize="1" bordercolor="#ffcd364b" childpadding="2" height="27" visible="false">
+    <HorizontalLayout inset="3,3,3,3" bordersize="1" bordercolor="#0affffff" childpadding="2" height="27" visible="false">
       <Control name="addr" visible="false" userdata="127.0.0.1:12321" />
       <Button name="sync_lession_info" textcolor="#ff36cd4b" width="60" text="同步排课" />
       <Control width="2" />

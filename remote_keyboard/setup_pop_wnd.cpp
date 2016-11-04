@@ -1,7 +1,8 @@
 #include "setup_pop_wnd.h"
 
-SetupPopWnd::SetupPopWnd()
-	: pa_hwnd_(NULL)
+SetupPopWnd::SetupPopWnd(HWND pa_hwnd, HWND top_hwnd)
+	: pa_hwnd_(pa_hwnd)
+	, top_hwnd_(top_hwnd)
 {
 }
 
@@ -14,15 +15,13 @@ LRESULT SetupPopWnd::OnInit()
 	return LRESULT();
 }
 
-HWND SetupPopWnd::CreateWithStyle(HWND pa_hwnd, DWORD style)
+HWND SetupPopWnd::CreateWithStyle(DWORD style)
 {
-	pa_hwnd_ = pa_hwnd;
 	return Create(pa_hwnd_, nullptr, style, 0);
 }
 
-HWND SetupPopWnd::CreateWithDefaltStyle(HWND pa_hwnd)
+HWND SetupPopWnd::CreateWithDefaltStyle()
 {
-	pa_hwnd_ = pa_hwnd;
 	return Create(pa_hwnd_, nullptr,
 		WS_POPUP | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, WS_EX_TOOLWINDOW | WS_EX_TOPMOST);
 }
@@ -48,8 +47,14 @@ void SetupPopWnd::OnClickBtn(TNotifyUI & msg, bool & handled)
 {
 	CDuiString name = msg.pSender->GetName();
 	if (name == _T("quit_full")) {
-		::SendMessage(pa_hwnd_, kAM_ChildEscMsg, 0, 0);
+		::SendMessage(top_hwnd_, kAM_ChildEscMsg, 0, 0);
 	}
+}
+
+void SetupPopWnd::OnSelectChanged(TNotifyUI & msg, bool & handled)
+{
+	int key = _tstoi(msg.pSender->GetUserData());
+	::PostMessage(pa_hwnd_, kAM_PopVKMsg, key, 0);
 }
 
 void SetupPopWnd::PopupWindow(PPOINT point, bool left_bottom)

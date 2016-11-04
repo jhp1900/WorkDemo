@@ -183,6 +183,12 @@ LRESULT RemoteKeyboard::OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 	return LRESULT();
 }
 
+LRESULT RemoteKeyboard::OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
+{
+	OnVKClick(wParam);
+	return LRESULT();
+}
+
 void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 {
 	LPPOINT lpoint = new tagPOINT;
@@ -193,17 +199,7 @@ void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)
 {
 	int key = _tstoi(msg.pSender->GetUserData());
-
-	unsigned __int64 _check_value = 0;
-	bool _enable = true;
-
-	RpcTryExcept
-		_check_value = rkbc_KeyBoardCtrl(m_hwBinding, key);
-	RpcExcept(1)
-		_enable = false;
-	RpcEndExcept
-
-	PostMessage(WM_UPDATE_STATUS, WPARAM(_enable), LPARAM(_check_value));
+	OnVKClick(key);
 }
 
 LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
@@ -222,11 +218,11 @@ void RemoteKeyboard::Init(HWND pa_hwnd)
 	SetLayeredWindowAttributes(m_hWnd, cr_key, 255, LWA_COLORKEY);
 
 	ResetKeyPos();
-	setup_wnd_.reset(new SetupPopWnd);
-	setup_wnd_->CreateWithDefaltStyle(GetParent(pa_hwnd_));
+	setup_wnd_.reset(new SetupPopWnd(m_hWnd, GetParent(pa_hwnd_)));
+	setup_wnd_->CreateWithDefaltStyle();
 
 	/*  刷新控件状态  */
-	SendMessage(WM_UPDATE_STATUS, WPARAM(false), LPARAM(0));
+	SendMessage(kAM_Update_Status, WPARAM(false), LPARAM(0));
 	SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 	/*  确定远程地址  */
@@ -343,8 +339,22 @@ void RemoteKeyboard::OnCheck()
 
 		if (!m_check_running) break;
 
-		PostMessage(WM_UPDATE_STATUS, WPARAM(_enable), LPARAM(_check_value));
+		PostMessage(kAM_Update_Status, WPARAM(_enable), LPARAM(_check_value));
 		Sleep(1000);
 	}
+}
+
+void RemoteKeyboard::OnVKClick(int key)
+{
+	unsigned __int64 _check_value = 0;
+	bool _enable = true;
+
+	RpcTryExcept
+		_check_value = rkbc_KeyBoardCtrl(m_hwBinding, key);
+	RpcExcept(1)
+		_enable = false;
+	RpcEndExcept
+
+	PostMessage(kAM_Update_Status, WPARAM(_enable), LPARAM(_check_value));
 }
 

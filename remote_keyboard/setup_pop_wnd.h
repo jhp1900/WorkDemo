@@ -5,7 +5,7 @@
 class SetupPopWnd : public WindowImplBase
 {
 public:
-	SetupPopWnd();
+	SetupPopWnd(HWND pa_hwnd, HWND top_hwnd);
 	~SetupPopWnd();
 
 	DECLARE_DUIWND_INFO(_T("SetupPopWnd"), CS_DBLCLKS, _T("setup_pop_wnd.xml"))
@@ -18,12 +18,13 @@ public:
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
 		DUINOTIFY_HANDLER(_T("quit_full"), DUINOTIFY_CLICK, OnClickBtn)
+		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_SELECTCHANGED, OnSelectChanged)
 	END_DUINOTIFY_MAP()
 
 public:
 	LRESULT OnInit() override;
-	HWND CreateWithStyle(HWND pa_hwnd, DWORD style);
-	HWND CreateWithDefaltStyle(HWND pa_hwnd);
+	HWND CreateWithStyle(DWORD style);
+	HWND CreateWithDefaltStyle();
 
 private:
 	LRESULT OnShowWindow(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -32,11 +33,13 @@ private:
 
 private:
 	void OnClickBtn(TNotifyUI& msg, bool& handled);
+	void OnSelectChanged(TNotifyUI& msg, bool& handled);
 
 public:
 	void PopupWindow(PPOINT point, bool left_bottom = false);
 
 private:
 	HWND pa_hwnd_;
+	HWND top_hwnd_;
 };
 

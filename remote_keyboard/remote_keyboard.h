@@ -22,7 +22,8 @@ public:
 		DUIMSG_HANDLER(WM_LBUTTONUP, OnCursorLButtonUp)
 		DUIMSG_HANDLER(WM_MOUSEMOVE, OnCursorMove)
 		DUIMSG_HANDLER(WM_TIMER, OnTime)
-		DUIMSG_HANDLER(WM_UPDATE_STATUS, OnUpdateStatus)
+		DUIMSG_HANDLER(kAM_Update_Status, OnUpdateStatus)
+		DUIMSG_HANDLER(kAM_PopVKMsg, OnPopVKMsg)
 	END_DUIMSG_MAP()
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
@@ -36,6 +37,7 @@ private:
 	LRESULT OnCursorMove(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 	LRESULT OnTime(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 	LRESULT OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
+	LRESULT OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 
 private:
 	void OnClickSteupBtn(TNotifyUI& msg, bool& handled);
@@ -55,6 +57,7 @@ private:
 	bool InChKeyRect(UINT channel, POINT point);
 	bool EnableControl(LPCTSTR name, bool enable);
 	void OnCheck();
+	void OnVKClick(int key);
 
 private:
 	HWND pa_hwnd_;
