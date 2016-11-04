@@ -37,6 +37,7 @@ private:
 
 public:
 	void PopupWindow(PPOINT point, bool left_bottom = false);
+	void DataSync(int index, bool enable);		// 数据同步
 
 private:
 	HWND pa_hwnd_;

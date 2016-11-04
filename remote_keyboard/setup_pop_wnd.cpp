@@ -1,5 +1,13 @@
 #include "setup_pop_wnd.h"
 
+std::pair<CDuiString, CDuiString> syn_name[] = {
+	{ _T("begin"), _T("begin_check") },
+	{ _T("pause"), _T("pause_check") },
+	{ _T("stop"), _T("stop_check") },
+	{ _T("auto_direct"), _T("auto_direct_check") },
+	{_T("manual_direct"), _T("manual_direct_check")}
+};
+
 SetupPopWnd::SetupPopWnd(HWND pa_hwnd, HWND top_hwnd)
 	: pa_hwnd_(pa_hwnd)
 	, top_hwnd_(top_hwnd)
@@ -64,11 +72,16 @@ void SetupPopWnd::PopupWindow(PPOINT point, bool left_bottom)
 	int x = point->x;
 	int y = point->y;
 
-	if (x + 125 > srceen_width)
-		x -= 125;
-	if (y + 150 > srceen_height)
-		y -= 150;
+	if (x + 136 > srceen_width)
+		x -= 136;
+	if (y + 250 > srceen_height)
+		y -= 250;
 
 	::SetWindowPos(m_hWnd, 0, x, y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 	ShowWindow();
+}
+
+void SetupPopWnd::DataSync(int index, bool enable)
+{
+	//m_PaintManager.FindControl(syn_name[index].first)->SetEnabled(enable);
 }

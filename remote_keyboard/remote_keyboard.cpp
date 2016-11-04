@@ -135,50 +135,15 @@ LRESULT RemoteKeyboard::OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 
 			if (i < 4) {
 				EnableControl(name, _recode_status != i);
+				//setup_wnd_->DataSync(i, _recode_status != i);
 			} else if (i < 12) {
 				EnableControl(name, _ch_status != i - 3);
 			} else {
 				EnableControl(name, _director_status != i - 11);
+				//setup_wnd_->DataSync(i, _director_status != i - 11);
 			}
 		}
 	}
-
-	//auto _GetExtendInfoWrap = [this](byte * &pBuf, long & nSize)->boolean {
-	//	boolean ret = false;
-
-	//	RpcTryExcept
-	//		ret = rkbc_GetExtendInfo(m_hwBinding, kExtendType_LessionInfo, __int64(m_lession_info_checksum), &pBuf, &nSize);
-	//	RpcExcept(1)
-	//		ret = false;
-	//	RpcEndExcept
-
-	//	return ret;
-	//};
-
-	//byte * pBuf = 0;
-	//long nSize = 0;
-	//if (_enable && _GetExtendInfoWrap(pBuf, nSize) && pBuf) {
-	//	auto const & items = g_LessionMappingTable;
-
-	//	pugi::xml_document doc;
-	//	if (doc.load(LPCTSTR(pBuf))) {
-	//		pugi::xml_node elem = doc.child(_T("lesson"));
-	//		if (elem) {
-	//			for (int i = 0; i < _countof(items); ++i) {
-	//				DuiLib::CControlUI *ctrl;
-	//				if (FindControl(items[i].name, ctrl)) {
-	//					ctrl->SetText(elem.attribute(items[i].attr).as_string());
-	//				}
-	//			}
-
-	//			m_lession_info = LPCTSTR(pBuf);
-	//			boost::crc_32_type result;
-	//			result.process_bytes(reinterpret_cast<const byte *>(m_lession_info.data()), (m_lession_info.size() + 1) * sizeof(wchar_t));
-	//			m_lession_info_checksum = result.checksum();
-	//		}
-	//	}
-	//	midl_user_free(pBuf);
-	//}
 
 	return LRESULT();
 }
@@ -212,10 +177,26 @@ LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
 void RemoteKeyboard::Init(HWND pa_hwnd)
 {
 	pa_hwnd_ = pa_hwnd;
-	Create(pa_hwnd, _T(""), WS_POPUP & ~WS_VISIBLE | WS_MAXIMIZE, WS_EX_LAYERED, 0, 0, 0, 0);
-	SetParent(m_hWnd, pa_hwnd_);
-	COLORREF cr_key = GetWindowBkColor(_T("body_layout"));
-	SetLayeredWindowAttributes(m_hWnd, cr_key, 255, LWA_COLORKEY);
+	//Create(pa_hwnd, _T(""), WS_POPUP & ~WS_VISIBLE | WS_MAXIMIZE, WS_EX_LAYERED);
+	//SetParent(m_hWnd, pa_hwnd_);
+	//::SetWindowPos(*this, NULL, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
+
+	{	// 晋哥透明法
+		//COLORREF cr_key = GetWindowBkColor(_T("body_layout"));
+		//SetLayeredWindowAttributes(m_hWnd, cr_key, 255, LWA_COLORKEY);
+	}
+
+	{
+		//Create(pa_hwnd_, _T(""), UI_WNDSTYLE_CHILD & ~WS_VISIBLE, 0, 0, 0, 0, 0, (HMENU)(1));
+		Create(pa_hwnd, _T(""), WS_POPUP & ~WS_VISIBLE | WS_MAXIMIZE, WS_EX_LAYERED);
+		::SetWindowPos(*this, NULL, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
+
+		//SetWindowLong(m_hWnd, GWL_EXSTYLE, GetWindowLong(m_hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+		//// 设置透明色  
+		//COLORREF clTransparent = RGB(0, 0, 0);
+		//SetLayeredWindowAttributes(m_hWnd, clTransparent, 0, LWA_COLORKEY); // 设置异形
+		//SetLayeredWindowAttributes(m_hWnd, 0, 50, LWA_ALPHA);    // 设置半透明
+	}
 
 	ResetKeyPos();
 	setup_wnd_.reset(new SetupPopWnd(m_hWnd, GetParent(pa_hwnd_)));
@@ -252,6 +233,17 @@ void RemoteKeyboard::Init(HWND pa_hwnd)
 	}
 
 	m_check_thread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&RemoteKeyboard::OnCheck, this)));
+}
+
+LRESULT RemoteKeyboard::OnInit()
+{
+	SetWindowLong(m_hWnd, GWL_EXSTYLE, GetWindowLong(m_hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+	// 设置透明色  
+	COLORREF clTransparent = RGB(0, 0, 0);
+	SetLayeredWindowAttributes(m_hWnd, clTransparent, 0, LWA_COLORKEY); // 设置异形
+	SetLayeredWindowAttributes(m_hWnd, 0, 50, LWA_ALPHA);    // 设置半透明
+
+	return LRESULT();
 }
 
 COLORREF RemoteKeyboard::GetWindowBkColor(LPCTSTR control_name)

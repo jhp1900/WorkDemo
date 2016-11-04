@@ -48,6 +48,7 @@ private:
 
 public:
 	void Init(HWND pa_hwnd);
+	virtual LRESULT OnInit() override;
 	COLORREF GetWindowBkColor(LPCTSTR control_name);
 	void ResetWndSize();
 	void SetSetupBtnVisible(bool visible);				// 设置 设置按钮 的可见性

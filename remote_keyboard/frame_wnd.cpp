@@ -51,7 +51,7 @@ LRESULT FrameWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOO
 	video_wnd_->RunVideo();
 
 	keyboard_.reset(new RemoteKeyboard);
-	keyboard_->Init(video_wnd_->GetHwnd());
+	keyboard_->Init(m_hWnd);
 	keyboard_->ShowWindow(true);
 
 	OnFullWnd();

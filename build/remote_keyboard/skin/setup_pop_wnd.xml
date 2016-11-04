@@ -1,18 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Window size="125,245">
+<Window size="136,250">
   <Font name="微软雅黑" size="12" bold="false" italic="false" default="true" />
   <Default name="CheckBox">normalimage="file='res\checkbox.png' source='0,0,13,13' dest='10,8,23,21'" hotimage="file='res\checkbox.png' source='0,13,13,26' dest='10,8,23,21'" selectedimage="file='res\checkbox.png' source='13,0,26,13' dest='10,8,23,21'" selectedhotimage="file='res\checkbox.png' source='13,13,26,26' dest='10,8,23,21'" selectedtextcolor="#ff0000aa"</Default>
   <VerticalLayout bkcolor="#ffffffff" inset="5,1,5,1">
-    <Button name="class_schedule" height="30" text="#同步排课" align="left" textcolor="#ff000000" textpadding="30,0,0,0" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" group="radio_group" />
-    <Button name="preset_position" height="30" text="#预置位" align="left" textcolor="#ff000000" textpadding="30,0,0,0" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" group="radio_group" />
+    <Button name="class_schedule" height="30" text="#同步排课" align="left" textcolor="#ff000000" textpadding="40,0,0,0" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
+    <Button name="preset_position" height="30" text="#预置位" align="left" textcolor="#ff000000" textpadding="40,0,0,0" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
     <Control height="1" bkcolor="#ff123456" />
-    <CheckBox name="begin" height="30" userdata="10001" group="group_record" text="#开始录制" align="left" textcolor="#ff000000" textpadding="30,0,0,0" />
-    <CheckBox name="pause" height="30" userdata="10002" group="group_record" text="#暂停录制" align="left" textcolor="#ff000000" textpadding="30,0,0,0" />
-    <CheckBox name="stop" height="30" userdata="10003" group="group_record" text="#停止录制" align="left" textcolor="#ff000000" textpadding="30,0,0,0" />
+    <VerticalLayout height="94" childpadding="1" inset="0,1,0,1">
+      <HorizontalLayout height="30">
+        <CheckBox name="begin_check" width="30" bkimage="" />
+        <Control width="1" bkcolor="#ffaaaaaa" padding="0,3,0,2" />
+        <Button name="begin" height="30" userdata="10001" group="group_record" text="#开始录制" align="left" textpadding="10,0,0,0" textcolor="#ff000000" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
+      </HorizontalLayout>
+      <HorizontalLayout height="30">
+        <CheckBox name="pause_check" width="30" bkimage="" />
+        <Control width="1" bkcolor="#ffaaaaaa" padding="0,2,0,2" />
+        <Button name="pause" height="30" userdata="10002" group="group_record" text="#暂停录制" align="left" textpadding="10,0,0,0" textcolor="#ff000000" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
+      </HorizontalLayout>
+      <HorizontalLayout height="30">
+        <CheckBox name="stop_check" width="30" bkimage="" />
+        <Control width="1" bkcolor="#ffaaaaaa" padding="0,2,0,3" />
+        <Button name="stop" height="30" userdata="10003" group="group_record" text="#停止录制" align="left" textpadding="10,0,0,0" textcolor="#ff000000" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
+      </HorizontalLayout>
+    </VerticalLayout>
     <Control height="1" bkcolor="#ff123456" />
-    <CheckBox name="auto_direct" height="30" text="#自动导播" userdata="30001" group="group_direct" align="left" textcolor="#ff000000" textpadding="30,0,0,0" />
-    <CheckBox name="manual_direct" height="30" text="#手动导播" userdata="30002" group="group_direct" align="left" textcolor="#ff000000" textpadding="30,0,0,0" />
+    <VerticalLayout height="63" childpadding="1" inset="0,1,0,1">
+      <HorizontalLayout height="30">
+        <CheckBox name="auto_direct_check" width="30" bkimage="" />
+        <Control width="1" bkcolor="#ffaaaaaa" padding="0,3,0,2" />
+        <Button name="auto_direct" height="30" userdata="30001" text="#自动导播" align="left" textpadding="10,0,0,0" textcolor="#ff000000" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
+      </HorizontalLayout>
+      <HorizontalLayout height="30">
+        <CheckBox name="manual_direct_check" width="30" bkimage="" />
+        <Control width="1" bkcolor="#ffaaaaaa" padding="0,2,0,3" />
+        <Button name="manual_direct" height="30" userdata="30002" text="#手动导播" align="left" textpadding="10,0,0,0" textcolor="#ff000000" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
+      </HorizontalLayout>
+    </VerticalLayout>
     <Control height="1" bkcolor="#ff123456" />
-    <Button name="quit_full" height="30" text="#退出全屏" align="left" textcolor="#ff000000" textpadding="30,0,0,0" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" group="radio_group" />
+    <Button name="quit_full" height="30" text="#退出全屏" align="left" textcolor="#ff000000" textpadding="40,0,0,0" hotbkcolor="#ffcccccc" hottextcolor="#ff0000aa" />
   </VerticalLayout>
 </Window>
