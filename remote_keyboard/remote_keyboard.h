@@ -24,11 +24,13 @@ public:
 		DUIMSG_HANDLER(WM_TIMER, OnTime)
 		DUIMSG_HANDLER(kAM_Update_Status, OnUpdateStatus)
 		DUIMSG_HANDLER(kAM_PopVKMsg, OnPopVKMsg)
+		DUIMSG_HANDLER(WM_CTLCOLOR, OnCtrColor)
 	END_DUIMSG_MAP()
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
 		DUINOTIFY_HANDLER(_T("setupbtn"), DUINOTIFY_CLICK, OnClickSteupBtn)
 		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_CLICK, OnClick)
+		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_ONPAINT, OnPaint);
 	END_DUINOTIFY_MAP()
 
 private:
@@ -38,10 +40,12 @@ private:
 	LRESULT OnTime(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 	LRESULT OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 	LRESULT OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
+	LRESULT OnCtrColor(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 
 private:
 	void OnClickSteupBtn(TNotifyUI& msg, bool& handled);
 	void OnClick(TNotifyUI& msg, bool& handled);
+	void OnPaint(TNotifyUI& msg, bool& handled);
 
 private:
 	virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam) override;

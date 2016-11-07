@@ -1,8 +1,8 @@
 #include "remote_keyboard.h"
 #include "RemoteKeyBoardCtrl/RemoteKeyBoardCtrl_h.h"
 #include "RemoteKeyBoardCtrl/RemoteKeyBoardCtrl_c.c"
-//#include "KeyBoardCtrl\KeyBoardCtrl.h"
 #include <bitset>
+#include "debug_tools.h"
 
 #pragma comment(lib,"Rpcrt4.lib")
 
@@ -154,6 +154,13 @@ LRESULT RemoteKeyboard::OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
 	return LRESULT();
 }
 
+LRESULT RemoteKeyboard::OnCtrColor(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
+{
+	debugPrintf("_-_-_-_-_- OnMakeHyaline -_-_-_-_-_");
+
+	return LRESULT();
+}
+
 void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 {
 	LPPOINT lpoint = new tagPOINT;
@@ -167,6 +174,11 @@ void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)
 	OnVKClick(key);
 }
 
+void RemoteKeyboard::OnPaint(TNotifyUI & msg, bool & handled)
+{
+	
+}
+
 LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
 {
 	::SendMessage(GetParent(pa_hwnd_), kAM_ChildEscMsg, 0, 0);
@@ -177,26 +189,14 @@ LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
 void RemoteKeyboard::Init(HWND pa_hwnd)
 {
 	pa_hwnd_ = pa_hwnd;
-	//Create(pa_hwnd, _T(""), WS_POPUP & ~WS_VISIBLE | WS_MAXIMIZE, WS_EX_LAYERED);
-	//SetParent(m_hWnd, pa_hwnd_);
-	//::SetWindowPos(*this, NULL, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
-
-	{	// 晋哥透明法
-		//COLORREF cr_key = GetWindowBkColor(_T("body_layout"));
-		//SetLayeredWindowAttributes(m_hWnd, cr_key, 255, LWA_COLORKEY);
-	}
-
-	{
-		//Create(pa_hwnd_, _T(""), UI_WNDSTYLE_CHILD & ~WS_VISIBLE, 0, 0, 0, 0, 0, (HMENU)(1));
-		Create(pa_hwnd, _T(""), WS_POPUP & ~WS_VISIBLE | WS_MAXIMIZE, WS_EX_LAYERED);
-		::SetWindowPos(*this, NULL, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
-
-		//SetWindowLong(m_hWnd, GWL_EXSTYLE, GetWindowLong(m_hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
-		//// 设置透明色  
-		//COLORREF clTransparent = RGB(0, 0, 0);
-		//SetLayeredWindowAttributes(m_hWnd, clTransparent, 0, LWA_COLORKEY); // 设置异形
-		//SetLayeredWindowAttributes(m_hWnd, 0, 50, LWA_ALPHA);    // 设置半透明
-	}
+	Create(pa_hwnd, _T(""), WS_POPUP & ~WS_VISIBLE | WS_MAXIMIZE, WS_EX_LAYERED);
+	SetParent(m_hWnd, pa_hwnd_);
+	::SetWindowPos(*this, NULL, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOSIZE | SWP_NOACTIVATE);
+	SetWindowLong(m_hWnd, GWL_EXSTYLE, GetWindowLong(m_hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+	// 设置透明色  		
+	COLORREF cr_key = GetWindowBkColor(_T("body_layout"));
+	SetLayeredWindowAttributes(m_hWnd, cr_key, 0, LWA_COLORKEY);
+	//SetLayeredWindowAttributes(m_hWnd, 0, 50, LWA_ALPHA);
 
 	ResetKeyPos();
 	setup_wnd_.reset(new SetupPopWnd(m_hWnd, GetParent(pa_hwnd_)));
@@ -272,18 +272,18 @@ void RemoteKeyboard::ResetKeyPos()
 	RECT pos[8] = {};
 	RECT win_rect = {};
 	GetWindowRect(m_hWnd, &win_rect);
-	UINT width_pitch = (win_rect.right - win_rect.left - 50) / 5;
+	UINT width_pitch = (win_rect.right - win_rect.left - 70) / 5;
 	UINT height_pitch = (win_rect.bottom - win_rect.top - 30 - 27) / 3;
 
 	for (int i = 0; i < 4; ++i) {
 		pos[i].left = (i + 1) * width_pitch;
-		pos[i].right = pos[i].left + 50;
+		pos[i].right = pos[i].left + 70;
 		pos[i].top = height_pitch;
 		pos[i].bottom = pos[i].top + 30;
 	}
 	for (int i = 4; i < 8; ++i) {
 		pos[i].left = (i - 3) * width_pitch;
-		pos[i].right = pos[i].left + 50;
+		pos[i].right = pos[i].left + 70;
 		pos[i].top = height_pitch * 2;
 		pos[i].bottom = pos[i].top + 30;
 	}

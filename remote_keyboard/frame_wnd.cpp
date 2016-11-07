@@ -33,14 +33,11 @@ void FrameWnd::OnClickTestBtn(TNotifyUI & msg, bool & handled)
 {
 	CDuiString name = msg.pSender->GetName();
 	if (name == _T("test_btn")) {
-		RECT rect = { 0 };
-		GetWindowRect(keyboard_->GetHWND(), &rect);
-		debugPrintf("\n\n------ RemoteKeyboard Size width=%d height%d ------------\n\n",
-			rect.right - rect.left, rect.bottom - rect.top);
+
 	} else if (name == _T("show_btn")) {
-		keyboard_->ShowWindow(true);
+		
 	} else if (name == _T("noshow_btn")) {
-		keyboard_->ShowWindow(false);
+		
 	}
 }
 
@@ -50,9 +47,9 @@ LRESULT FrameWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOO
 	video_wnd_->Init(m_hWnd);
 	video_wnd_->RunVideo();
 
-	keyboard_.reset(new RemoteKeyboard);
-	keyboard_->Init(m_hWnd);
-	keyboard_->ShowWindow(true);
+	//keyboard_.reset(new RemoteKeyboard);
+	//keyboard_->Init(video_wnd_->GetHwnd());
+	//keyboard_->ShowWindow(true);
 
 	OnFullWnd();
 	return LRESULT();
@@ -60,7 +57,7 @@ LRESULT FrameWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOO
 
 LRESULT FrameWnd::OnWndSizeChangeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
 {
-	keyboard_->ResetWndSize();
+	//keyboard_->ResetWndSize();
 	return LRESULT();
 }
 
@@ -86,12 +83,12 @@ void FrameWnd::OnFullWnd()
 	int cx = GetSystemMetrics(SM_CXSCREEN);
 	int cy = GetSystemMetrics(SM_CYSCREEN);
 	MoveWindow(m_hWnd, 0, 0, cx, cy, true);
-	keyboard_->SetSetupBtnVisible(true);
+	//keyboard_->SetSetupBtnVisible(true);
 }
 
 void FrameWnd::OnQuitFullWnd()
 {
-	keyboard_->SetSetupBtnVisible(false);
+	//keyboard_->SetSetupBtnVisible(false);
 	m_PaintManager.FindControl(_T("title_layout"))->SetVisible(true);
 	PDUI_CONTAINER frame_body;
 	frame_body = static_cast<PDUI_CONTAINER>(m_PaintManager.FindControl(_T("frame_body")));
