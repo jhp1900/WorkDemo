@@ -36,10 +36,10 @@ void VideoWnd::RunVideo()
 
 LRESULT VideoWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
 {
-	ch_ctrl_.reset(new ChCtrl(m_hWnd));
-	ch_ctrl_->InitCtrl();
-	ch_ctrl_->ShowWindow(true);
-	ch_ctrl_->SetCtrlPos(100, 100, 70, 70);
+	//ch_ctrl_.reset(new ChCtrl(m_hWnd));
+	//ch_ctrl_->InitCtrl();
+	//ch_ctrl_->ShowWindow(true);
+	//ch_ctrl_->SetCtrlPos(100, 100, 70, 70);
 	return LRESULT();
 }
 

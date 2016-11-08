@@ -24,7 +24,7 @@
       <Button name="close" width="20" text="X" bkimage="bk.png" />
     </HorizontalLayout>
     <VerticalLayout>
-      <Button name="rkbc_04" width="60" userdata="20001" text="CH1" font="1" borderround="4,4" bkcolor="#ffffffff" hotbkcolor="#" float="true" pos="200,200,250,230" />
+      <Button name="rkbc_04" width="60" userdata="20001" text="CH1" font="1" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="200,200,250,230" />
       <Button name="rkbc_05" width="45" userdata="20002" text="CH2" font="1" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="300,200,350,250" />
       <Button name="rkbc_06" width="45" userdata="20003" text="CH3" font="1" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="400,200,450,250" />
       <Button name="rkbc_07" width="45" userdata="20004" text="CH4" font="1" borderround="4,4" bkcolor="#" hotbkcolor="#" float="true" pos="500,200,550,250" />
