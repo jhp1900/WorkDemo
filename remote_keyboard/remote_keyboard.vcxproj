@@ -160,7 +160,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ch_ctrl.cpp" />
     <ClCompile Include="frame_wnd.cpp" />
     <ClCompile Include="inlet_function.cpp" />
     <ClCompile Include="native_control_ui.cpp" />
@@ -171,7 +170,6 @@
     <ClCompile Include="window_impl_base.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ch_ctrl.h" />
     <ClInclude Include="frame_wnd.h" />
     <ClInclude Include="msg_head.h" />
     <ClInclude Include="native_control_ui.h" />

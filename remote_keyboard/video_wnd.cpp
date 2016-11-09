@@ -4,7 +4,6 @@ VideoWnd::VideoWnd()
 	: hwnd_(NULL)
 	, pa_hwnd_(NULL)
 	, vlc_tool_(nullptr)
-	, ch_ctrl_(nullptr)
 {}
 
 VideoWnd::~VideoWnd()
@@ -19,7 +18,6 @@ void VideoWnd::Init(HWND pa_hwnd)
 
 LRESULT VideoWnd::OnInit()
 {
-	PostMessage(kAM_InitOtherWndMsg, 0, 0);
 	return LRESULT();
 }
 
@@ -32,15 +30,6 @@ void VideoWnd::RunVideo()
 	vlc_tool_->SetPlayerWindows(hwnd_);
 	vlc_tool_->StartPlay();
 	ShowWindow(true);
-}
-
-LRESULT VideoWnd::OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
-{
-	//ch_ctrl_.reset(new ChCtrl(m_hWnd));
-	//ch_ctrl_->InitCtrl();
-	//ch_ctrl_->ShowWindow(true);
-	//ch_ctrl_->SetCtrlPos(100, 100, 70, 70);
-	return LRESULT();
 }
 
 LRESULT VideoWnd::OnWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)

@@ -39,9 +39,6 @@
     <ClCompile Include="setup_pop_wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="ch_ctrl.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="frame_wnd.h">
@@ -72,9 +69,6 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="setup_pop_wnd.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="ch_ctrl.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

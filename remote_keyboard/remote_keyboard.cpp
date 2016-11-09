@@ -44,7 +44,7 @@ RemoteKeyboard::~RemoteKeyboard()
 {
 }
 
-LRESULT RemoteKeyboard::OnCursorLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+LRESULT RemoteKeyboard::OnCursorRButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
 {
 	bHandled = false;
 	POINT point;
@@ -52,9 +52,7 @@ LRESULT RemoteKeyboard::OnCursorLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lPa
 	point.y = GET_Y_LPARAM(lParam);
 	for (int i = 4; i < 12; ++i) {
 		if (InChKeyRect(i, point)) {
-			SetTimer(m_hWnd, 1, 200, nullptr);
 			in_channel_ = true;
-			is_move_ = false;
 			current_channel_ = i;
 			old_point_ = point;
 			return 0;
@@ -64,16 +62,11 @@ LRESULT RemoteKeyboard::OnCursorLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lPa
 	return LRESULT();
 }
 
-LRESULT RemoteKeyboard::OnCursorLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+LRESULT RemoteKeyboard::OnCursorRButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
 {
 	bHandled = false;
 	current_channel_ = -1;
-	if (in_channel_) {
-		if (is_move_)
-			bHandled = true;
-		KillTimer(m_hWnd, 1);
-		in_channel_ = false;
-	}
+	in_channel_ = false;
 
 	return LRESULT();
 }
@@ -97,15 +90,6 @@ LRESULT RemoteKeyboard::OnCursorMove(UINT uMsg, WPARAM wParam, LPARAM lParam, BO
 	}
 
 	bHandled = false;
-	return LRESULT();
-}
-
-LRESULT RemoteKeyboard::OnTime(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
-{
-	if (in_channel_)
-		return is_move_ = true;
-
-	is_move_ = false;
 	return LRESULT();
 }
 
@@ -154,13 +138,6 @@ LRESULT RemoteKeyboard::OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL
 	return LRESULT();
 }
 
-LRESULT RemoteKeyboard::OnCtrColor(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
-{
-	debugPrintf("_-_-_-_-_- OnMakeHyaline -_-_-_-_-_");
-
-	return LRESULT();
-}
-
 void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 {
 	LPPOINT lpoint = new tagPOINT;
@@ -172,11 +149,6 @@ void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)
 {
 	int key = _tstoi(msg.pSender->GetUserData());
 	OnVKClick(key);
-}
-
-void RemoteKeyboard::OnPaint(TNotifyUI & msg, bool & handled)
-{
-	
 }
 
 LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
