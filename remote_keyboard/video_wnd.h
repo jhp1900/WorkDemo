@@ -15,6 +15,7 @@ public:
 
 	BEGIN_DUIMSG_MAP(FrameWnd)
 		DUIMSG_HANDLER(kAM_InitOtherWndMsg, OnInitOtherWndMsg)
+		DUIMSG_HANDLER(WM_RBUTTONDOWN, OnRBtnDowMsg)
 		DUIMSG_HANDLER(WM_SIZE, OnWndSizeMsg)
 	END_DUIMSG_MAP()
 
@@ -27,6 +28,7 @@ public:
 private:
 	LRESULT OnInitOtherWndMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 	LRESULT OnWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+	LRESULT OnRBtnDowMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 
 private:
 	HWND hwnd_;

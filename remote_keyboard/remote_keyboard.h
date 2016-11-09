@@ -5,9 +5,7 @@
 #include "setup_pop_wnd.h"
 #include <boost\crc.hpp>
 #include <boost\thread.hpp>
-//#include <atlbase.h>
-//#include <atlwin.h>
-//#include <atltypes.h>
+#include "ch_ctrl.h"
 
 class RemoteKeyboard : public WindowImplBase
 {
@@ -18,34 +16,28 @@ public:
 	DECLARE_DUIWND_INFO(_T("RemoteKeyboard"), CS_DBLCLKS, _T("RemoteKeyBoard.xml"))
 
 	BEGIN_DUIMSG_MAP(RemoteKeyboard)
-		DUIMSG_HANDLER(WM_LBUTTONDOWN, OnCursorLButtonDown)
-		DUIMSG_HANDLER(WM_LBUTTONUP, OnCursorLButtonUp)
+		DUIMSG_HANDLER(WM_RBUTTONDOWN, OnCursorRButtonDown)
+		DUIMSG_HANDLER(WM_RBUTTONUP, OnCursorRButtonUp)
 		DUIMSG_HANDLER(WM_MOUSEMOVE, OnCursorMove)
-		DUIMSG_HANDLER(WM_TIMER, OnTime)
 		DUIMSG_HANDLER(kAM_Update_Status, OnUpdateStatus)
 		DUIMSG_HANDLER(kAM_PopVKMsg, OnPopVKMsg)
-		DUIMSG_HANDLER(WM_CTLCOLOR, OnCtrColor)
 	END_DUIMSG_MAP()
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
 		DUINOTIFY_HANDLER(_T("setupbtn"), DUINOTIFY_CLICK, OnClickSteupBtn)
 		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_CLICK, OnClick)
-		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_ONPAINT, OnPaint);
 	END_DUINOTIFY_MAP()
 
 private:
-	LRESULT OnCursorLButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
-	LRESULT OnCursorLButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+	LRESULT OnCursorRButtonDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+	LRESULT OnCursorRButtonUp(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 	LRESULT OnCursorMove(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
-	LRESULT OnTime(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 	LRESULT OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 	LRESULT OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
-	LRESULT OnCtrColor(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandle);
 
 private:
 	void OnClickSteupBtn(TNotifyUI& msg, bool& handled);
 	void OnClick(TNotifyUI& msg, bool& handled);
-	void OnPaint(TNotifyUI& msg, bool& handled);
 
 private:
 	virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam) override;
@@ -71,6 +63,7 @@ private:
 	POINT old_point_;
 	bool is_move_;
 	std::shared_ptr<SetupPopWnd> setup_wnd_;
+	std::shared_ptr<ChCtrl> chctrl_;
 
 	RPC_BINDING_HANDLE m_hwBinding;
 	RPC_WSTR m_szStringBinding;

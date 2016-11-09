@@ -8,4 +8,6 @@ enum AppMsg
 	kAM_ChildEscMsg,			// 子窗口 ESC 按键消息
 	kAM_Update_Status,			// 刷新控件
 	kAM_PopVKMsg,				// 设置弹出框中，代表虚拟按钮的消息
+	kAM_ChInRBtnDowMsg,			// 在通道控件中按下右键
+	kAM_ChInRBtnUpMsg,			// 在通道控件中弹起右键
 };

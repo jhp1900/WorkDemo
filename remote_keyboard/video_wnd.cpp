@@ -48,3 +48,10 @@ LRESULT VideoWnd::OnWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & b
 	::PostMessage(pa_hwnd_, kAM_WndSizeChangeMsg, 0, 0);
 	return LRESULT();
 }
+
+LRESULT VideoWnd::OnRBtnDowMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandled)
+{
+	GET_X_LPARAM(lParam);
+	GET_Y_LPARAM(lParam);
+	return LRESULT();
+}
