@@ -2,6 +2,13 @@
 #include "window_impl_base.h"
 #include "msg_head.h"
 
+enum PopMsgType
+{
+	ClassSchedule,
+	PTZ,
+	ControlPanel,
+};
+
 class SetupPopWnd : public WindowImplBase
 {
 public:
@@ -17,8 +24,7 @@ public:
 	END_DUIMSG_MAP()
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
-		DUINOTIFY_HANDLER(_T("quit_full"), DUINOTIFY_CLICK, OnClickBtn)
-		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_SELECTCHANGED, OnSelectChanged)
+		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_CLICK, OnClickBtn)
 	END_DUINOTIFY_MAP()
 
 public:
@@ -34,7 +40,6 @@ private:
 
 private:
 	void OnClickBtn(TNotifyUI& msg, bool& handled);
-	void OnSelectChanged(TNotifyUI& msg, bool& handled);
 
 public:
 	void PopupWindow(PPOINT point, bool left_bottom = false);

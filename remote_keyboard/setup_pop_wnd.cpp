@@ -20,6 +20,11 @@ SetupPopWnd::~SetupPopWnd()
 
 LRESULT SetupPopWnd::OnInit()
 {
+	SetWindowLong(m_hWnd, GWL_EXSTYLE, GetWindowLong(m_hWnd, GWL_EXSTYLE) | WS_EX_LAYERED);
+	// ÉèÖÃÍ¸Ã÷É«  		
+	COLORREF cr_key = RGB(0, 0, 0);
+	SetLayeredWindowAttributes(m_hWnd, cr_key, 0, LWA_COLORKEY);
+	SetLayeredWindowAttributes(m_hWnd, 0, 125, LWA_ALPHA);
 	return LRESULT();
 }
 
@@ -53,29 +58,25 @@ LRESULT SetupPopWnd::OnKillFocus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &
 
 LRESULT SetupPopWnd::ResponseDefaultKeyEvent(WPARAM wParam)
 {
+	ShowWindow(SW_HIDE);
 	return LRESULT();
 }
 
 void SetupPopWnd::OnClickBtn(TNotifyUI & msg, bool & handled)
 {
 	CDuiString name = msg.pSender->GetName();
-	if (name == _T("quit_full")) {
+	if (name == _T("class_schedule")) {
+		::SendMessage(pa_hwnd_, kAM_PopClickMsg, ClassSchedule, 0);
+	} else if (name == _T("ptz")) {
+		::SendMessage(pa_hwnd_, kAM_PopClickMsg, PTZ, 0);
+	} else if (name == _T("control_panel")) {
+		::SendMessage(pa_hwnd_, kAM_PopClickMsg, ControlPanel, 0);
+	} else if (name == _T("quit_full")) {
 		::SendMessage(top_hwnd_, kAM_ChildEscMsg, 0, 0);
-	} else if (name == _T("")) {
-
-	} else if (name == _T("")) {
-
-	} else if (name == _T("")) {
-
-	} else if (name == _T("")) {
-
+	} else if (name == _T("closebtn")) {
+		::exit(0);
 	}
-}
-
-void SetupPopWnd::OnSelectChanged(TNotifyUI & msg, bool & handled)
-{
-	int key = _tstoi(msg.pSender->GetUserData());
-	::PostMessage(pa_hwnd_, kAM_PopClickMsg, key, 0);
+	ShowWindow(SW_HIDE);
 }
 
 void SetupPopWnd::PopupWindow(PPOINT point, bool left_bottom)

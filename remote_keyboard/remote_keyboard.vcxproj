@@ -163,6 +163,7 @@
     <ClCompile Include="frame_wnd.cpp" />
     <ClCompile Include="inlet_function.cpp" />
     <ClCompile Include="native_control_ui.cpp" />
+    <ClCompile Include="ptz_wnd.cpp" />
     <ClCompile Include="remote_keyboard.cpp" />
     <ClCompile Include="setup_pop_wnd.cpp" />
     <ClCompile Include="video_wnd.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="frame_wnd.h" />
     <ClInclude Include="msg_head.h" />
     <ClInclude Include="native_control_ui.h" />
+    <ClInclude Include="ptz_wnd.h" />
     <ClInclude Include="remote_keyboard.h" />
     <ClInclude Include="setup_pop_wnd.h" />
     <ClInclude Include="stdafx.h" />

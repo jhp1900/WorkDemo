@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window size="300,400" roundcorner="10,10" caption="0,0,0,20">
+<Window size="300,350" roundcorner="10,10" caption="0,0,0,30">
   <Font name="微软雅黑" size="12" bold="false" italic="false" default="true" />
-  <VerticalLayout bkcolor="#ffffffff" inset="5,1,5,1">
+  <VerticalLayout bkcolor="#ffffffff" inset="1,1,1,1">
     <HorizontalLayout height="30">
       <Control />
-      <Button name="" width="30" />
+      <Button name="close_ptz" width="30" bkcolor="#ff000000" />
     </HorizontalLayout>
     <Control />
     <HorizontalLayout height="160">
@@ -36,7 +36,7 @@
       </VerticalLayout>
       <Control />
     </HorizontalLayout>
-    <Control height="20" />
+    <Control height="30" />
     <VerticalLayout inset="20,0,20,0" height="70">
       <HorizontalLayout height="32" bkcolor="#ff292d37" borderround="5,5">
         <Button name="ptz_focus_inc" width="32" bkimage="file='res\plus_minus.png' source='0,0,32,32'" hotimage="file='res\plus_minus.png' source='32,0,64,32'" bkcolor="" hotbkcolor="" />

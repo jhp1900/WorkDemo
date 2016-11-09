@@ -20,20 +20,27 @@
       <HorizontalLayout height="70" inset="0,20,0,0">
         <Control width="70" />
         <Control />
-        <HorizontalLayout name="control_panel" width="600" inset="0,10,0,10" borderround="5,5" bordercolor="#ffaaaaaa" bordersize="1">
-          <Control />
-          <Button name="sync_lession_info" textcolor="#ff36cd4b" width="60" text="同步排课" visible="false" />
-          <Control width="15" visible="false" />
-          <Button name="rkbc_01" width="90" userdata="10001" text="开始录制" font="1" />
-          <Control width="2" />
-          <Button name="rkbc_02" width="90" userdata="10002" text="暂停录制" font="1" />
-          <Control width="2" />
-          <Button name="rkbc_03" width="90" userdata="10003" text="停止录制" font="1" />
-          <Control width="50" />
-          <Button name="rkbc_12" width="90" userdata="30001" text="自动导播" font="1" />
-          <Control width="2" />
-          <Button name="rkbc_13" width="90" userdata="30002" text="手动导播" font="1" />
-          <Control />
+        <HorizontalLayout name="control_panel" width="600" borderround="5,5" bordercolor="#ffaaaaaa" bordersize="1" visible="false">
+          <Control width="30" />
+          <HorizontalLayout inset="0,10,0,10">
+            <Control />
+            <Button name="sync_lession_info" textcolor="#ff36cd4b" width="60" text="同步排课" visible="false" />
+            <Control width="15" visible="false" />
+            <Button name="rkbc_01" width="90" userdata="10001" text="开始录制" font="1" />
+            <Control width="2" />
+            <Button name="rkbc_02" width="90" userdata="10002" text="暂停录制" font="1" />
+            <Control width="2" />
+            <Button name="rkbc_03" width="90" userdata="10003" text="停止录制" font="1" />
+            <Control width="50" />
+            <Button name="rkbc_12" width="90" userdata="30001" text="自动导播" font="1" />
+            <Control width="2" />
+            <Button name="rkbc_13" width="90" userdata="30002" text="手动导播" font="1" />
+            <Control />
+          </HorizontalLayout>
+          <VerticalLayout width="30">
+            <Button name="close_panel" height="30" bkcolor="#ff000000" />
+            <Control />
+          </VerticalLayout>
         </HorizontalLayout>
         <Control />
         <Button name="setupbtn" width="50" bkimage="res/logo.png" />

@@ -5,7 +5,7 @@
   <Default name="Button">height="35" align="left" textcolor="#ff000000" textpadding="10,0,0,0" borderround="5,5" bkcolor="#ffe0e0e0" hotbkcolor="#ff5ccc5c" hottextcolor="#ff0000aa"</Default>
   <VerticalLayout bkcolor="#ffffffff" inset="5,5,5,5" childpadding="1">
     <Button name="class_schedule" text="#同步排课"  />
-    <Button name="preset_position" text="#预置位" />
+    <Button name="ptz" text="#预置位" />
     <Button name="control_panel" text="#控制台" />
     <Button name="quit_full" text="#退出全屏" />
     <Control height="2" />

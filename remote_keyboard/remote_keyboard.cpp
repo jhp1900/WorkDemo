@@ -31,8 +31,8 @@ RemoteKeyboard::RemoteKeyboard()
 	, current_channel_(-1)
 	, in_channel_(false)
 	, old_point_({ 0, 0 })
-	, is_move_(false)
 	, setup_wnd_(nullptr)
+	, ptz_wnd_(nullptr)
 	, m_hwBinding(0)
 	, m_szStringBinding(0)
 	, m_lession_info_checksum(0)
@@ -134,6 +134,30 @@ LRESULT RemoteKeyboard::OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 
 LRESULT RemoteKeyboard::OnPopClickMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
 {
+	switch (wParam)
+	{
+		case ClassSchedule: {
+			break;
+		}
+
+		case PTZ: {
+			if (!ptz_wnd_) {
+				ptz_wnd_.reset(new PtzWnd(m_hWnd));
+				ptz_wnd_->DoModal();
+			}
+			ptz_wnd_->ShowModal();
+			break;
+		}
+
+		case ControlPanel: {
+			PDUI_CONTROL cp = m_PaintManager.FindControl(_T("control_panel"));
+			cp->SetVisible(!cp->IsVisible());
+			break;
+		}
+
+		default:
+			break;
+	}
 	return LRESULT();
 }
 
@@ -142,6 +166,11 @@ void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 	LPPOINT lpoint = new tagPOINT;
 	::GetCursorPos(lpoint);
 	setup_wnd_->PopupWindow(lpoint);
+}
+
+void RemoteKeyboard::OnCloseCPanel(TNotifyUI & msg, bool & handled)
+{
+	m_PaintManager.FindControl(_T("control_panel"))->SetVisible(false);
 }
 
 void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)

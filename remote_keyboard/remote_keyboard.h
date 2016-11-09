@@ -5,9 +5,7 @@
 #include "setup_pop_wnd.h"
 #include <boost\crc.hpp>
 #include <boost\thread.hpp>
-//#include <atlbase.h>
-//#include <atlwin.h>
-//#include <atltypes.h>
+#include "ptz_wnd.h"
 
 class RemoteKeyboard : public WindowImplBase
 {
@@ -27,6 +25,7 @@ public:
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
 		DUINOTIFY_HANDLER(_T("setupbtn"), DUINOTIFY_CLICK, OnClickSteupBtn)
+		DUINOTIFY_HANDLER(_T("close_panel"), DUINOTIFY_CLICK, OnCloseCPanel)
 		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_CLICK, OnClick)
 	END_DUINOTIFY_MAP()
 
@@ -39,6 +38,7 @@ private:
 
 private:
 	void OnClickSteupBtn(TNotifyUI& msg, bool& handled);
+	void OnCloseCPanel(TNotifyUI& msg, bool& handled);
 	void OnClick(TNotifyUI& msg, bool& handled);
 
 private:
@@ -62,8 +62,8 @@ private:
 	UINT current_channel_;
 	bool in_channel_;
 	POINT old_point_;
-	bool is_move_;
 	std::shared_ptr<SetupPopWnd> setup_wnd_;
+	std::shared_ptr<PtzWnd> ptz_wnd_;
 
 	RPC_BINDING_HANDLE m_hwBinding;
 	RPC_WSTR m_szStringBinding;
