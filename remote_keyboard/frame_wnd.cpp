@@ -80,10 +80,8 @@ void FrameWnd::OnFullWnd()
 	PDUI_CONTAINER frame_body;
 	frame_body = static_cast<PDUI_CONTAINER>(m_PaintManager.FindControl(_T("frame_body")));
 	frame_body->SetInset({ 0,0,0,0 });
-	int cx = GetSystemMetrics(SM_CXSCREEN);
-	int cy = GetSystemMetrics(SM_CYSCREEN);
-	MoveWindow(m_hWnd, 0, 0, cx, cy, true);
 	keyboard_->SetSetupBtnVisible(true);
+	SendMessage(WM_SYSCOMMAND, SC_MAXIMIZE, 0);	
 }
 
 void FrameWnd::OnQuitFullWnd()

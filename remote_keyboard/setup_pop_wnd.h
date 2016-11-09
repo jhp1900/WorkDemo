@@ -30,6 +30,7 @@ private:
 	LRESULT OnShowWindow(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	virtual LRESULT OnKeyDown(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled) override;
 	virtual LRESULT OnKillFocus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled) override;
+	virtual LRESULT ResponseDefaultKeyEvent(WPARAM wParam) override;
 
 private:
 	void OnClickBtn(TNotifyUI& msg, bool& handled);

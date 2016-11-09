@@ -22,7 +22,7 @@
     <ProjectGuid>{30D21CCF-2283-45B7-BA6A-5C38358C212E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>remote_keyboard</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

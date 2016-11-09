@@ -132,9 +132,8 @@ LRESULT RemoteKeyboard::OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 	return LRESULT();
 }
 
-LRESULT RemoteKeyboard::OnPopVKMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
+LRESULT RemoteKeyboard::OnPopClickMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
 {
-	OnVKClick(wParam);
 	return LRESULT();
 }
 
@@ -148,13 +147,21 @@ void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)
 {
 	int key = _tstoi(msg.pSender->GetUserData());
-	OnVKClick(key);
+	unsigned __int64 _check_value = 0;
+	bool _enable = true;
+
+	RpcTryExcept
+		_check_value = rkbc_KeyBoardCtrl(m_hwBinding, key);
+	RpcExcept(1)
+		_enable = false;
+	RpcEndExcept
+
+	PostMessage(kAM_Update_Status, WPARAM(_enable), LPARAM(_check_value));
 }
 
 LRESULT RemoteKeyboard::ResponseDefaultKeyEvent(WPARAM wParam)
 {
 	::SendMessage(GetParent(pa_hwnd_), kAM_ChildEscMsg, 0, 0);
-	
 	return LRESULT();
 }
 
@@ -245,19 +252,19 @@ void RemoteKeyboard::ResetKeyPos()
 	RECT win_rect = {};
 	GetWindowRect(m_hWnd, &win_rect);
 	UINT width_pitch = (win_rect.right - win_rect.left - 70) / 5;
-	UINT height_pitch = (win_rect.bottom - win_rect.top - 30 - 27) / 3;
+	UINT height_pitch = (win_rect.bottom - win_rect.top - 50 - 27) / 3;
 
 	for (int i = 0; i < 4; ++i) {
 		pos[i].left = (i + 1) * width_pitch;
 		pos[i].right = pos[i].left + 70;
 		pos[i].top = height_pitch;
-		pos[i].bottom = pos[i].top + 30;
+		pos[i].bottom = pos[i].top + 50;
 	}
 	for (int i = 4; i < 8; ++i) {
 		pos[i].left = (i - 3) * width_pitch;
 		pos[i].right = pos[i].left + 70;
 		pos[i].top = height_pitch * 2;
-		pos[i].bottom = pos[i].top + 30;
+		pos[i].bottom = pos[i].top + 50;
 	}
 
 	TCHAR name[32];
@@ -306,19 +313,5 @@ void RemoteKeyboard::OnCheck()
 		PostMessage(kAM_Update_Status, WPARAM(_enable), LPARAM(_check_value));
 		Sleep(1000);
 	}
-}
-
-void RemoteKeyboard::OnVKClick(int key)
-{
-	unsigned __int64 _check_value = 0;
-	bool _enable = true;
-
-	RpcTryExcept
-		_check_value = rkbc_KeyBoardCtrl(m_hwBinding, key);
-	RpcExcept(1)
-		_enable = false;
-	RpcEndExcept
-
-	PostMessage(kAM_Update_Status, WPARAM(_enable), LPARAM(_check_value));
 }
 

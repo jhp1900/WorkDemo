@@ -51,18 +51,31 @@ LRESULT SetupPopWnd::OnKillFocus(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &
 	return LRESULT();
 }
 
+LRESULT SetupPopWnd::ResponseDefaultKeyEvent(WPARAM wParam)
+{
+	return LRESULT();
+}
+
 void SetupPopWnd::OnClickBtn(TNotifyUI & msg, bool & handled)
 {
 	CDuiString name = msg.pSender->GetName();
 	if (name == _T("quit_full")) {
 		::SendMessage(top_hwnd_, kAM_ChildEscMsg, 0, 0);
+	} else if (name == _T("")) {
+
+	} else if (name == _T("")) {
+
+	} else if (name == _T("")) {
+
+	} else if (name == _T("")) {
+
 	}
 }
 
 void SetupPopWnd::OnSelectChanged(TNotifyUI & msg, bool & handled)
 {
 	int key = _tstoi(msg.pSender->GetUserData());
-	::PostMessage(pa_hwnd_, kAM_PopVKMsg, key, 0);
+	::PostMessage(pa_hwnd_, kAM_PopClickMsg, key, 0);
 }
 
 void SetupPopWnd::PopupWindow(PPOINT point, bool left_bottom)
@@ -72,10 +85,10 @@ void SetupPopWnd::PopupWindow(PPOINT point, bool left_bottom)
 	int x = point->x;
 	int y = point->y;
 
-	if (x + 136 > srceen_width)
-		x -= 136;
-	if (y + 250 > srceen_height)
-		y -= 250;
+	if (x + 100 > srceen_width)
+		x -= 100;
+	if (y + 130 > srceen_height)
+		y -= 130;
 
 	::SetWindowPos(m_hWnd, 0, x, y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 	ShowWindow();
