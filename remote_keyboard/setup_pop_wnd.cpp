@@ -65,7 +65,7 @@ LRESULT SetupPopWnd::ResponseDefaultKeyEvent(WPARAM wParam)
 void SetupPopWnd::OnClickBtn(TNotifyUI & msg, bool & handled)
 {
 	CDuiString name = msg.pSender->GetName();
-	if (name == _T("class_schedule")) {
+	if (name == _T("sync_lession")) {
 		::SendMessage(pa_hwnd_, kAM_PopClickMsg, ClassSchedule, 0);
 	} else if (name == _T("ptz")) {
 		::SendMessage(pa_hwnd_, kAM_PopClickMsg, PTZ, 0);

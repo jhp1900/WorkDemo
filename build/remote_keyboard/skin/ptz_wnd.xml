@@ -4,7 +4,7 @@
   <VerticalLayout bkcolor="#ffffffff" inset="1,1,1,1">
     <HorizontalLayout height="30">
       <Control />
-      <Button name="close_ptz" width="30" bkcolor="#ff000000" />
+      <Button name="close_ptz" width="30" bkimage="res/close_panel_1.png" hotimage="res/close_panel_2.png" />
     </HorizontalLayout>
     <Control />
     <HorizontalLayout height="160">

@@ -24,6 +24,8 @@
 #include "duilib\UIlib.h"
 #include "duilib\Utils\UIWnd.h"
 #include "duilib\Utils\UICrack.h"
+
+#define PUGIXML_WCHAR_MODE
 #include "pugixml\pugixml.hpp"
 
 using namespace DuiLib;
@@ -33,7 +35,6 @@ using namespace DuiLib;
 #else
 #	pragma comment(lib, "duilib_sl-d.lib")
 #endif
-
 
 #define MAX max
 #define MIN min

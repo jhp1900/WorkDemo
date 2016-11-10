@@ -3,6 +3,7 @@
 #include "RemoteKeyBoardCtrl/RemoteKeyBoardCtrl_c.c"
 #include <bitset>
 #include "debug_tools.h"
+#include "pugixml\pugixml.cpp"
 
 #pragma comment(lib,"Rpcrt4.lib")
 
@@ -119,14 +120,51 @@ LRESULT RemoteKeyboard::OnUpdateStatus(UINT uMsg, WPARAM wParam, LPARAM lParam, 
 
 			if (i < 4) {
 				EnableControl(name, _recode_status != i);
-				//setup_wnd_->DataSync(i, _recode_status != i);
 			} else if (i < 12) {
 				EnableControl(name, _ch_status != i - 3);
 			} else {
 				EnableControl(name, _director_status != i - 11);
-				//setup_wnd_->DataSync(i, _director_status != i - 11);
 			}
 		}
+	}
+
+	auto _GetExtendInfoWrap = [this](byte* &pBuf, long &nSize) -> boolean {
+		boolean ret = false;
+
+		RpcTryExcept
+			ret = rkbc_GetExtendInfo(m_hwBinding, kExtendType_LessionInfo, __int64(m_lession_info_checksum), &pBuf, &nSize);
+		RpcExcept(1)
+			ret = false;
+		RpcEndExcept
+
+			return ret;
+	};
+
+	/* 如果同步排课界面不处于显示状态，则不刷新 */
+	if (!m_PaintManager.FindControl(_T("sync_panel"))->IsVisible())	 
+		return 0;
+	byte *pBuf = 0;
+	long nSize = 0;
+	if (_enable && _GetExtendInfoWrap(pBuf, nSize) && pBuf) {
+		auto const &items = g_LessionMappingTable;
+
+		pugi::xml_document doc;
+		if (doc.load(LPCTSTR(pBuf))) {
+			pugi::xml_node elem = doc.child(_T("lesson"));
+			if (elem) {
+				for (int i = 0; i < _countof(items); ++i) {
+					DuiLib::CControlUI *ctrl;
+					if (ctrl = m_PaintManager.FindControl(items[i].name))
+						ctrl->SetText(elem.attribute(items[i].attr).as_string());
+				}
+
+				m_lession_info = LPCTSTR(pBuf);
+				boost::crc_32_type result;
+				result.process_bytes(reinterpret_cast<const byte *>(m_lession_info.data()), (m_lession_info.size() + 1) * sizeof(wchar_t));
+				m_lession_info_checksum = result.checksum();
+			}
+		}
+		midl_user_free(pBuf);
 	}
 
 	return LRESULT();
@@ -137,7 +175,7 @@ LRESULT RemoteKeyboard::OnPopClickMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 	switch (wParam)
 	{
 		case ClassSchedule: {
-			PDUI_CONTROL panel = m_PaintManager.FindControl(_T("class_panel"));
+			PDUI_CONTROL panel = m_PaintManager.FindControl(_T("sync_panel"));
 			panel->SetVisible(!panel->IsVisible());
 			break;
 		}
@@ -170,6 +208,47 @@ void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 void RemoteKeyboard::OnClosePanel(TNotifyUI & msg, bool & handled)
 {
 	msg.pSender->GetParent()->SetVisible(false);
+}
+
+void RemoteKeyboard::OnClickSyncBtn(TNotifyUI & msg, bool & handled)
+{
+	auto const &items = g_LessionMappingTable;
+	DuiLib::CControlUI *ctrl;
+
+	if (msg.pSender->GetName() == _T("sync_ok")) {
+		pugi::xml_document xmldoc;
+		pugi::xml_node root = xmldoc.append_child(PUGIXML_TEXT("lesson"));
+
+		for (int i = 0; i < _countof(items); ++i) {
+			pugi::xml_attribute attr = root.append_attribute(items[i].attr);
+			if (ctrl = m_PaintManager.FindControl(items[i].name))
+				attr = ctrl->GetText();
+		}
+		std::wostringstream oss;
+		root.print(oss, L"", pugi::format_raw);
+
+		auto _ExecuteExtendCmdWrap = [this](const std::wstring &buf) -> boolean {
+			boolean ret = false;
+			RpcTryExcept
+				ret = rkbc_ExecuteExtendCmd(m_hwBinding, kExtendType_LessionInfo, reinterpret_cast<const byte *>(buf.data()), (buf.size() + 1) * sizeof(wchar_t));
+			RpcExcept(1)
+				ret = false;
+			RpcEndExcept
+
+				return ret;
+		};
+
+		if (_ExecuteExtendCmdWrap(oss.str())) {
+			m_lession_info = oss.str();
+
+			boost::crc_32_type result;
+			result.process_bytes(reinterpret_cast<const byte *>(m_lession_info.data()), (m_lession_info.size() + 1) * sizeof(wchar_t));
+			m_lession_info_checksum = result.checksum();
+		}
+	}
+
+	if (ctrl = m_PaintManager.FindControl(_T("sync_panel")))
+		ctrl->SetVisible(false);
 }
 
 void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)
