@@ -25,7 +25,7 @@ public:
 
 	BEGIN_DUINOTIFY_MAP(FrameWnd)
 		DUINOTIFY_HANDLER(_T("setupbtn"), DUINOTIFY_CLICK, OnClickSteupBtn)
-		DUINOTIFY_HANDLER(_T("close_panel"), DUINOTIFY_CLICK, OnCloseCPanel)
+		DUINOTIFY_HANDLER(_T("close_panel"), DUINOTIFY_CLICK, OnClosePanel)
 		DUINOTIFY_TYPE_HANDLER(DUINOTIFY_CLICK, OnClick)
 	END_DUINOTIFY_MAP()
 
@@ -38,7 +38,7 @@ private:
 
 private:
 	void OnClickSteupBtn(TNotifyUI& msg, bool& handled);
-	void OnCloseCPanel(TNotifyUI& msg, bool& handled);
+	void OnClosePanel(TNotifyUI& msg, bool& handled);
 	void OnClick(TNotifyUI& msg, bool& handled);
 
 private:

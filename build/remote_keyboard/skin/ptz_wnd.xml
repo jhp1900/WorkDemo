@@ -9,7 +9,7 @@
     <Control />
     <HorizontalLayout height="160">
       <Control />
-      <VerticalLayout width="160" bkcolor="#ff123456">
+      <VerticalLayout width="160">
         <HorizontalLayout height="50">
           <Button name="ptz_slow" bkcolor="#ff292d37" borderround="5,5" bordercolor="#ff1a1b1c" bordersize="1" normalimage="file='res\ptz_slow.png' source='0,0,56,56'" hotimage="file='res\ptz_slow.png' source='57,0,112,56'" pushedimage="file='res\ptz_slow.png' source='113,0,169,56'"/>
           <Control width="5" />

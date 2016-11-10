@@ -137,21 +137,20 @@ LRESULT RemoteKeyboard::OnPopClickMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 	switch (wParam)
 	{
 		case ClassSchedule: {
+			PDUI_CONTROL panel = m_PaintManager.FindControl(_T("class_panel"));
+			panel->SetVisible(!panel->IsVisible());
 			break;
 		}
 
 		case PTZ: {
-			if (!ptz_wnd_) {
-				ptz_wnd_.reset(new PtzWnd(m_hWnd));
-				ptz_wnd_->DoModal();
-			}
-			ptz_wnd_->ShowModal();
+			ptz_wnd_.reset(new PtzWnd(m_hWnd));
+			ptz_wnd_->DoModal();
 			break;
 		}
 
 		case ControlPanel: {
-			PDUI_CONTROL cp = m_PaintManager.FindControl(_T("control_panel"));
-			cp->SetVisible(!cp->IsVisible());
+			PDUI_CONTROL panel = m_PaintManager.FindControl(_T("control_panel"));
+			panel->SetVisible(!panel->IsVisible());
 			break;
 		}
 
@@ -168,9 +167,9 @@ void RemoteKeyboard::OnClickSteupBtn(TNotifyUI & msg, bool & handled)
 	setup_wnd_->PopupWindow(lpoint);
 }
 
-void RemoteKeyboard::OnCloseCPanel(TNotifyUI & msg, bool & handled)
+void RemoteKeyboard::OnClosePanel(TNotifyUI & msg, bool & handled)
 {
-	m_PaintManager.FindControl(_T("control_panel"))->SetVisible(false);
+	msg.pSender->GetParent()->SetVisible(false);
 }
 
 void RemoteKeyboard::OnClick(TNotifyUI & msg, bool & handled)
