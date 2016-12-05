@@ -4,6 +4,8 @@
 #include <bitset>
 #include "debug_tools.h"
 #include "pugixml\pugixml.cpp"
+#include "ip_set_wnd.h"
+#include "res_singleton.h"
 
 #pragma comment(lib,"Rpcrt4.lib")
 
@@ -192,9 +194,41 @@ LRESULT RemoteKeyboard::OnPopClickMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, B
 			break;
 		}
 
+		case LinkServe: {
+			IpSetWnd ipset_wnd(m_hWnd, ServerIP);
+			ipset_wnd.DoModal();
+			break;
+		}
+
+		case BackStreams: {
+			IpSetWnd ipset_wnd(m_hWnd, BackStreamsIP);
+			ipset_wnd.DoModal();
+			break;
+		}
+
 		default:
 			break;
 	}
+	return LRESULT();
+}
+
+LRESULT RemoteKeyboard::OnPtzClickMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
+{
+	PDUI_BUTTON ptz_btn = static_cast<PDUI_BUTTON>(m_PaintManager.FindControl((LPCTSTR)wParam));
+	if (ptz_btn)
+		m_PaintManager.SendNotify(ptz_btn, DUINOTIFY_CLICK);
+	return LRESULT();
+}
+
+LRESULT RemoteKeyboard::OnResetServeIpMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
+{
+	BindServerIP();
+	return LRESULT();
+}
+
+LRESULT RemoteKeyboard::OnResetBackStreamsIpMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL & bHandle)
+{
+	::PostMessage(pa_hwnd_, uMsg, wParam, lParam);
 	return LRESULT();
 }
 
@@ -293,30 +327,7 @@ void RemoteKeyboard::Init(HWND pa_hwnd)
 	SetWindowPos(m_hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
 
 	/*  确定远程地址  */
-	PDUI_CONTROL ctrl = m_PaintManager.FindControl(_T("addr"));
-	if (!ctrl) {
-		::MessageBox(m_hWnd, _T("Address control not find!"), _T("OnInit"), MB_OK);
-		return;
-	}
-	const DuiLib::CDuiString &str = ctrl->GetUserData();
-	int pos = str.Find(_T(":"));
-	const DuiLib::CDuiString ip = str.Left(pos);
-	const DuiLib::CDuiString port = str.Right(str.GetLength() - pos - 1);
-	if (ip.GetLength() < 7 || port.GetLength() < 1) {
-		::MessageBox(m_hWnd, _T("Address is empty or incorrectly set!"), _T("OnInit"), MB_OK);
-		return;
-	}
-
-	/*  绑定操作  */
-	if (RpcStringBindingCompose(NULL, (RPC_WSTR)_T("ncacn_ip_tcp"), (RPC_WSTR)(LPTSTR)(LPCTSTR)(ip), 
-		(RPC_WSTR)(LPTSTR)(LPCTSTR)(port), NULL, &m_szStringBinding) != RPC_S_OK
-		|| RpcBindingFromStringBinding(m_szStringBinding, &m_hwBinding) != RPC_S_OK)
-	{
-		TCHAR buf[512];
-		_stprintf_s(buf, sizeof(buf) / sizeof(TCHAR), _T("Connect the controlled terminal failed : %d"), GetLastError());
-		::MessageBox(m_hWnd, buf, _T("OnInit"), MB_OK);
-		return;
-	}
+	BindServerIP();
 
 	m_check_thread = boost::shared_ptr<boost::thread>(new boost::thread(boost::bind(&RemoteKeyboard::OnCheck, this)));
 }
@@ -350,7 +361,7 @@ void RemoteKeyboard::ResetWndSize()
 
 void RemoteKeyboard::SetSetupBtnVisible(bool visible)
 {
-	m_PaintManager.FindControl(_T("setupbtn"))->SetVisible(visible);
+	//m_PaintManager.FindControl(_T("setupbtn"))->SetVisible(visible);
 }
 
 void RemoteKeyboard::ResetKeyPos()
@@ -420,5 +431,27 @@ void RemoteKeyboard::OnCheck()
 		PostMessage(kAM_Update_Status, WPARAM(_enable), LPARAM(_check_value));
 		Sleep(1000);
 	}
+}
+
+bool RemoteKeyboard::BindServerIP()
+{
+	DuiLib::CDuiString ip, port;
+	ResSingleton::GetInstance()->GetSysCfg()->GetIpInfo(ServerIP, ip, port);
+	if (ip.GetLength() < 7 || port.GetLength() < 1) {
+		::MessageBox(m_hWnd, _T("Address is empty or incorrectly set!"), _T("OnInit"), MB_OK);
+		return false;
+	}
+
+	/*  绑定操作  */
+	if (RpcStringBindingCompose(NULL, (RPC_WSTR)_T("ncacn_ip_tcp"), (RPC_WSTR)(LPTSTR)(LPCTSTR)(ip),
+		(RPC_WSTR)(LPTSTR)(LPCTSTR)(port), NULL, &m_szStringBinding) != RPC_S_OK
+		|| RpcBindingFromStringBinding(m_szStringBinding, &m_hwBinding) != RPC_S_OK)
+	{
+		TCHAR buf[512];
+		_stprintf_s(buf, sizeof(buf) / sizeof(TCHAR), _T("Connect the controlled terminal failed : %d"), GetLastError());
+		::MessageBox(m_hWnd, buf, _T("OnInit"), MB_OK);
+		return false;
+	}
+	return true;
 }
 

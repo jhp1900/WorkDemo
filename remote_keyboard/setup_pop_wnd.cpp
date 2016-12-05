@@ -24,7 +24,7 @@ LRESULT SetupPopWnd::OnInit()
 	// ÉèÖÃÍ¸Ã÷É«  		
 	COLORREF cr_key = RGB(0, 0, 0);
 	SetLayeredWindowAttributes(m_hWnd, cr_key, 0, LWA_COLORKEY);
-	SetLayeredWindowAttributes(m_hWnd, 0, 125, LWA_ALPHA);
+	SetLayeredWindowAttributes(m_hWnd, 0, 170, LWA_ALPHA);
 	return LRESULT();
 }
 
@@ -65,17 +65,21 @@ LRESULT SetupPopWnd::ResponseDefaultKeyEvent(WPARAM wParam)
 void SetupPopWnd::OnClickBtn(TNotifyUI & msg, bool & handled)
 {
 	CDuiString name = msg.pSender->GetName();
-	if (name == _T("sync_lession")) {
+	if (name == _T("sync_lession"))
 		::SendMessage(pa_hwnd_, kAM_PopClickMsg, ClassSchedule, 0);
-	} else if (name == _T("ptz")) {
+	else if (name == _T("ptz"))
 		::SendMessage(pa_hwnd_, kAM_PopClickMsg, PTZ, 0);
-	} else if (name == _T("control_panel")) {
+	else if (name == _T("control_panel"))
 		::SendMessage(pa_hwnd_, kAM_PopClickMsg, ControlPanel, 0);
-	} else if (name == _T("quit_full")) {
+	else if (name == _T("link_serve"))
+		::SendMessage(pa_hwnd_, kAM_PopClickMsg, LinkServe, 0);
+	else if (name == _T("back_streams"))
+		::SendMessage(pa_hwnd_, kAM_PopClickMsg, BackStreams, 0);
+	else if (name == _T("quit_full"))
 		::SendMessage(top_hwnd_, kAM_ChildEscMsg, 0, 0);
-	} else if (name == _T("closebtn")) {
+	else if (name == _T("closebtn"))
 		::exit(0);
-	}
+
 	ShowWindow(SW_HIDE);
 }
 

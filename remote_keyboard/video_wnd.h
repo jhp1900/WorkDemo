@@ -14,6 +14,7 @@ public:
 
 	BEGIN_DUIMSG_MAP(FrameWnd)
 		DUIMSG_HANDLER(WM_SIZE, OnWndSizeMsg)
+		DUIMSG_HANDLER(kAM_ResetBackStreamsIP, ResetIPInfo)
 	END_DUIMSG_MAP()
 
 public:
@@ -24,6 +25,7 @@ public:
 
 private:
 	LRESULT OnWndSizeMsg(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
+	LRESULT ResetIPInfo(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled);
 
 private:
 	HWND hwnd_;

@@ -22,7 +22,7 @@
     <ProjectGuid>{30D21CCF-2283-45B7-BA6A-5C38358C212E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>remote_keyboard</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -162,22 +162,28 @@
   <ItemGroup>
     <ClCompile Include="frame_wnd.cpp" />
     <ClCompile Include="inlet_function.cpp" />
+    <ClCompile Include="ip_set_wnd.cpp" />
     <ClCompile Include="native_control_ui.cpp" />
     <ClCompile Include="ptz_wnd.cpp" />
     <ClCompile Include="remote_keyboard.cpp" />
+    <ClCompile Include="res_singleton.cpp" />
     <ClCompile Include="setup_pop_wnd.cpp" />
+    <ClCompile Include="sys_cfg.cpp" />
     <ClCompile Include="video_wnd.cpp" />
     <ClCompile Include="vlc_tool.cpp" />
     <ClCompile Include="window_impl_base.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="frame_wnd.h" />
+    <ClInclude Include="ip_set_wnd.h" />
     <ClInclude Include="msg_head.h" />
     <ClInclude Include="native_control_ui.h" />
     <ClInclude Include="ptz_wnd.h" />
     <ClInclude Include="remote_keyboard.h" />
+    <ClInclude Include="res_singleton.h" />
     <ClInclude Include="setup_pop_wnd.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="sys_cfg.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="video_wnd.h" />
     <ClInclude Include="vlc_tool.h" />

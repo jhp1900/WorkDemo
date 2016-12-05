@@ -42,6 +42,15 @@
     <ClCompile Include="ptz_wnd.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="ip_set_wnd.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="res_singleton.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sys_cfg.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="frame_wnd.h">
@@ -75,6 +84,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="ptz_wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ip_set_wnd.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="res_singleton.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sys_cfg.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

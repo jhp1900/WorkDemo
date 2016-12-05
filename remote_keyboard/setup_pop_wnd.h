@@ -7,6 +7,8 @@ enum PopMsgType
 	ClassSchedule,
 	PTZ,
 	ControlPanel,
+	LinkServe,
+	BackStreams,
 };
 
 class SetupPopWnd : public WindowImplBase
